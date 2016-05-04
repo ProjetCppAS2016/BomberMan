@@ -13,6 +13,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
+					<Add directory="include" />
 				</Compiler>
 			</Target>
 			<Target title="Release">
@@ -22,6 +23,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add directory="include" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -36,11 +38,15 @@
 			<Add library="mingw32" />
 			<Add library="SDLmain" />
 			<Add library="SDL" />
+			<Add library="lib/libSDL.dll.a" />
 			<Add library="lib/SDL_image.lib" />
-			<Add library="lib/SDL_TTF.lib" />
 			<Add directory="lib" />
 		</Linker>
-		<Unit filename="sources/main.cpp" />
+		<Unit filename="include/Surface.h" />
+		<Unit filename="include/Window.h" />
+		<Unit filename="src/Surface.cpp" />
+		<Unit filename="src/Window.cpp" />
+		<Unit filename="src/main.cpp" />
 		<Extensions>
 			<code_completion />
 			<debugger />
