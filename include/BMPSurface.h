@@ -17,6 +17,7 @@ class BMPSurface : public Surface
 
         void setTransparency(bool, Uint32);
         void setTransparency(bool, int, int, int);
+        void setAlpha(bool, int);
 
     protected:
 

@@ -45,6 +45,14 @@ void BMPSurface::setTransparency(bool active, int r, int g, int b)
         SDL_SetColorKey(surface, 0, 0);
 }
 
+void BMPSurface::setAlpha(bool active, int alpha)
+{
+    if (active)
+        SDL_SetAlpha(surface, SDL_SRCALPHA, alpha);
+    else
+        SDL_SetAlpha(surface, 0, 0);
+}
+
 
 
 
