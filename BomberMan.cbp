@@ -42,8 +42,14 @@
 			<Add library="lib/SDL_image.lib" />
 			<Add directory="lib" />
 		</Linker>
+		<Unit filename="include/BMPSurface.h" />
+		<Unit filename="include/FlatSurface.h" />
+		<Unit filename="include/Screen.h" />
 		<Unit filename="include/Surface.h" />
 		<Unit filename="include/Window.h" />
+		<Unit filename="src/BMPSurface.cpp" />
+		<Unit filename="src/FlatSurface.cpp" />
+		<Unit filename="src/Screen.cpp" />
 		<Unit filename="src/Surface.cpp" />
 		<Unit filename="src/Window.cpp" />
 		<Unit filename="src/main.cpp" />

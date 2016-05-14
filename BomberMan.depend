@@ -201,11 +201,13 @@
 	"begin_code.h"
 	"close_code.h"
 
-1462377275 c:\users\shiro\desktop\projettut[c++]\bomberman\include\window.h
+1463225106 c:\users\shiro\desktop\projettut[c++]\bomberman\include\window.h
 	<SDL/SDL.h>
 	<iostream>
 	<vector>
 	"Surface.h"
+	"Screen.h"
+	"BMPSurface.h"
 
 1462375204 source:c:\users\shiro\desktop\projettut[c++]\bomberman\sources\window.cpp
 	"Window.h"
@@ -213,7 +215,7 @@
 	<SDL/SDL.h>
 	<iostream>
 
-1462376712 c:\users\shiro\desktop\projettut[c++]\bomberman\include\surface.h
+1463223115 c:\users\shiro\desktop\projettut[c++]\bomberman\include\surface.h
 	<SDL/SDL.h>
 	<iostream>
 
@@ -221,4 +223,47 @@
 	<SDL/SDL.h>
 	<iostream>
 	"Surface.h"
+
+1463226374 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\main.cpp
+	<iostream>
+	<SDL/SDL.h>
+	<SDL/SDL_image.h>
+	"Window.h"
+	"FlatSurface.h"
+
+1463222607 c:\users\shiro\desktop\projettut[c++]\bomberman\include\screen.h
+	"Surface.h"
+
+1463222607 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\screen.cpp
+	"Screen.h"
+	"Surface.h"
+
+1463223296 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\surface.cpp
+	<SDL/SDL.h>
+	<iostream>
+	"Surface.h"
+
+1462978795 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\flatsurface.cpp
+	<SDL/SDL.h>
+	"Surface.h"
+	"FlatSurface.h"
+
+1462975914 c:\users\shiro\desktop\projettut[c++]\bomberman\include\flatsurface.h
+	"Surface.h"
+	<SDL/SDL.h>
+
+1463226374 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\window.cpp
+	"Window.h"
+	"Surface.h"
+	"Screen.h"
+	<SDL/SDL.h>
+	<iostream>
+
+1463225626 c:\users\shiro\desktop\projettut[c++]\bomberman\include\bmpsurface.h
+	"Surface.h"
+
+1463226405 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\bmpsurface.cpp
+	"Surface.h"
+	"BMPSurface.h"
+	"SDL/SDL.h"
 
