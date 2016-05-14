@@ -7,10 +7,10 @@ Screen::Screen(SDL_Surface *s) : Surface(s)
 {}
 
 Screen::~Screen()
-{ Surface::~Surface(); }
+{}
 
-Screen::Screen(const Screen& other)
-{ Surface::Surface(other); }
+Screen::Screen(const Screen& other) : Surface(other)
+{}
 
 
 void Screen::setBgColor(int r, int g, int b)

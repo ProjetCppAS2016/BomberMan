@@ -29,8 +29,8 @@ class Surface
         SDL_Surface *surface;
         int x;
         int y;
-        int disp_h;
         int disp_w;
+        int disp_h;
 
     private:
 };

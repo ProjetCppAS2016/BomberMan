@@ -35,12 +35,12 @@ Window::Window(int w, int h, string t, string i) : width (w), height(h), title(t
 
 
 Window::~Window()
-{ delete Screen; }
+{}
 
 Window::Window(const Window& other) : width (other.width),
                                         height(other.height),
                                         title(other.title),
-                                        icon(other.icon),
+                                        icon(other.icon)
 { screen = new Screen(*(other.screen)); }
 
 
