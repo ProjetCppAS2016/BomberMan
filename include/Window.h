@@ -4,34 +4,40 @@
 #include <iostream>
 #include <vector>
 #include "Surface.h"
+#include "Screen.h"
+#include "BMPSurface.h"
 
 class Window
 {
     public:
-        Window(int, int, int);
-        Window(int, int, int, std::string);
-        virtual ~Window();
+        Window(int, int);
+        Window(int, int, std::string);
+        Window(int, int, std::string, std::string);
+        void init();
+        ~Window();
         Window(const Window& other);
 
-        int getWidth();
-        int getHeight();
-        int getDepth();
-        void setTitle(std::string);
-        std::string getTitle();
+        int getWidth() { return width; }
+        int getHeight() { return height; }
+        void setTitle(std::string t) { title = t; SDL_WM_SetCaption((char*) &title, NULL); }
+        std::string getTitle() { return title; }
+        Screen& getScreen() { return (*screen); }
 
         void WaitEvent(Uint8);
-        void setBgColor(int, int, int);
-        void addComponent(Surface*);
 
     protected:
 
     private:
         int width;
         int height;
-        int depth;
-        Surface* screen;
+        Screen* screen;
         std::string title;
-        std::vector<Surface*> content;
+        BMPSurface icon;
 };
 
 #endif // WINDOW_H
+
+
+
+
+
