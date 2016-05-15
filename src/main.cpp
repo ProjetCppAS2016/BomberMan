@@ -2,7 +2,7 @@
 #include <SDL/SDL.h>
 #include <SDL/SDL_image.h>
 #include "Window.h"
-#include "BMPSurface.h"
+#include "IMGSurface.h"
 
 using namespace std;
 
@@ -15,8 +15,8 @@ int main(int argv, char** args)
 
     Window main_w (400, 800, "BomberMan", "icon.bmp");
     main_w.getScreen().setBgColor(10, 190, 220);
-    BMPSurface test("cutie.bmp");
-    test.setTransparency(true, 0, 0, 0);
+    IMGSurface test("cutie.bmp");
+    test.setAlpha(true, 150);
     main_w.getScreen().addComponent(test);
 
     main_w.WaitEvent(SDL_QUIT);
