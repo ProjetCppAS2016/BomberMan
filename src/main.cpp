@@ -22,9 +22,11 @@ int main(int argv, char** args)
     //test.setAlpha(true, 150);
     main_w.getScreen().addComponent(test);
 
-    Text txt_test("Rainbow Dash!", "PonyRides.ttf", 50);
+    Text txt_test("Rainbow Dash!", "PonyRides.ttf", 67);
     txt_test.setDefault_color(220, 220, 220);
+    txt_test.setDefault_type("blended");
     txt_test.render();
+    txt_test.Setx((400-txt_test.getSurface()->w) / 2);
     main_w.getScreen().addComponent(txt_test);
     txt_test.close_font();
 
@@ -34,3 +36,11 @@ int main(int argv, char** args)
     SDL_Quit();
     return 0;
 }
+
+
+
+
+
+
+
+
