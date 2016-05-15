@@ -2,7 +2,7 @@
 #define IMGSURFACE_H
 
 #include "Surface.h"
-#include "SDL\SDL_image.h"
+#include <SDL\SDL_image.h>
 
 
 class IMGSurface : public Surface

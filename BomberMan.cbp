@@ -7,7 +7,7 @@
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output="bin/Debug/SDL_image_TTF_Template" prefix_auto="1" extension_auto="1" />
+				<Option output="bin/Debug/BomberMan" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
@@ -17,7 +17,7 @@
 				</Compiler>
 			</Target>
 			<Target title="Release">
-				<Option output="bin/Release/SDL_image_TTF_Template" prefix_auto="1" extension_auto="1" />
+				<Option output="bin/Release/BomberMan" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Release/" />
 				<Option type="0" />
 				<Option compiler="gcc" />
@@ -40,17 +40,22 @@
 			<Add library="SDL" />
 			<Add library="lib/libSDL.dll.a" />
 			<Add library="lib/SDL_image.lib" />
+			<Add library="lib/SDL_ttf.lib" />
 			<Add directory="lib" />
 		</Linker>
 		<Unit filename="include/BMPSurface.h" />
 		<Unit filename="include/FlatSurface.h" />
+		<Unit filename="include/IMGSurface.h" />
 		<Unit filename="include/Screen.h" />
 		<Unit filename="include/Surface.h" />
+		<Unit filename="include/Text.h" />
 		<Unit filename="include/Window.h" />
 		<Unit filename="src/BMPSurface.cpp" />
 		<Unit filename="src/FlatSurface.cpp" />
+		<Unit filename="src/IMGSurface.cpp" />
 		<Unit filename="src/Screen.cpp" />
 		<Unit filename="src/Surface.cpp" />
+		<Unit filename="src/Text.cpp" />
 		<Unit filename="src/Window.cpp" />
 		<Unit filename="src/main.cpp" />
 		<Extensions>

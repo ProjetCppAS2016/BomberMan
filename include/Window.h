@@ -23,7 +23,8 @@ class Window
         std::string getTitle() { return title; }
         Screen& getScreen() { return (*screen); }
 
-        void WaitEvent(Uint8);
+        void waitEvent(Uint8);
+        void showCursor(bool);
 
     protected:
 
