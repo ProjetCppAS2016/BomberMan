@@ -3,6 +3,7 @@
 #include <SDL/SDL_ttf.h>
 #include "Window.h"
 #include "IMGSurface.h"
+#include "Text.h"
 
 using namespace std;
 
@@ -16,10 +17,16 @@ int main(int argv, char** args)
         fprintf(stderr, "Erreur dans l'initialisation de SDL_ttf: %s", TTF_GetError());
 
     Window main_w (400, 800, "BomberMan", "icon.bmp");
-    main_w.getScreen().setBgColor(10, 190, 220);
+    main_w.getScreen().setBgColor(10, 10, 10);
     IMGSurface test("cutie.png");
     //test.setAlpha(true, 150);
     main_w.getScreen().addComponent(test);
+
+    Text txt_test("Rainbow Dash!", "PonyRides.ttf", 50);
+    txt_test.setDefault_color(220, 220, 220);
+    txt_test.render();
+    main_w.getScreen().addComponent(txt_test);
+    txt_test.close_font();
 
     main_w.waitEvent(SDL_QUIT);
 

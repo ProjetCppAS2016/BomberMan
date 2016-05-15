@@ -2,9 +2,9 @@
 #include <iostream>
 #include "Surface.h"
 
-Surface::Surface() : surface(NULL), x(-1), y(-1), disp_w(-1), disp_h(-1)
+Surface::Surface() : surface(NULL), x(0), y(0), disp_w(-1), disp_h(-1)
 {}
-Surface::Surface(SDL_Surface* s) : surface(s), x(-1), y(-1), disp_w(-1), disp_h(-1)
+Surface::Surface(SDL_Surface* s) : surface(s), x(0), y(0), disp_w(-1), disp_h(-1)
 {}
 Surface::Surface(SDL_Surface* s, int x, int y) : surface(s), x(x), y(y), disp_w(-1), disp_h(-1)
 {}
