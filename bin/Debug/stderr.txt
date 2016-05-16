@@ -1,1 +1,2 @@
 libpng warning: Interlace handling should be turned on when using png_read_image
+Erreur dans le chargement de la BMP: SDL_RWFromFile(): No file or no mode specifiedErreur dans le chargement de la BMP: Couldn't open icone.bmp

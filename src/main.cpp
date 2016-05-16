@@ -28,6 +28,8 @@ int main(int argv, char** args)
     main_w.getScreen().addComponent(txt_test);
 
     txt_test.Setx((400-txt_test.getSurface()->w) / 2);
+    BMPSurface icone("");
+    main_w.getScreen().addComponent(icone);
     main_w.getScreen().refresh();
 
     txt_test.close_font();
