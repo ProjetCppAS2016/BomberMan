@@ -25,6 +25,10 @@ class Surface
         int Gety() { return y; }
         void Sety(int val) { y = val; }
 
+        void setAlpha(bool, int);
+        void hide() { setAlpha(true, 0); }
+        void show() { setAlpha(false, 0); }
+
     protected:
         SDL_Surface *surface;
         int x;

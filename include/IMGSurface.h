@@ -16,7 +16,7 @@ class IMGSurface : public Surface
         virtual ~IMGSurface();
         IMGSurface(const IMGSurface& other);
 
-        void setAlpha(bool, int);
+        void setImg(std::string);
 
     protected:
 

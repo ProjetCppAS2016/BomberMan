@@ -26,15 +26,11 @@ IMGSurface::~IMGSurface()
 IMGSurface::IMGSurface(const IMGSurface& other) : Surface(other), path(other.path)
 {}
 
-void IMGSurface::setAlpha(bool active, int alpha)
+void IMGSurface::setImg(string p)
 {
-    if (active)
-        SDL_SetAlpha(surface, SDL_SRCALPHA, alpha);
-    else
-        SDL_SetAlpha(surface, 0, 0);
+    path = p;
+    initIMG();
 }
-
-
 
 
 
