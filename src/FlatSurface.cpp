@@ -31,6 +31,13 @@ FlatSurface::~FlatSurface()
 FlatSurface::FlatSurface(const FlatSurface& other) : Surface(other), height(other.height), width(other.width), color(other.color)
 {}
 
+void FlatSurface::setColor(int r, int g, int b)
+{
+    color = SDL_MapRGB(surface->format, r, g, b);
+    SDL_FillRect(surface, NULL, color);
+    setModified(true);
+}
+
 
 
 

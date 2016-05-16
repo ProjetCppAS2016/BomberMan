@@ -19,14 +19,16 @@ int main(int argv, char** args)
     Window main_w (400, 800, "BomberMan", "icon.bmp");
     main_w.getScreen().setBgColor(10, 10, 10);
     IMGSurface test("cutie.png");
-    main_w.getScreen().addComponent(test);
+    main_w.getScreen().addStaticComponent(test);
 
-    Text txt_test("Rainbow Dash!", "PonyRides.ttf", 67);
+    Text txt_test("Rainbow Dash!", "PonyRides.ttf", 60);
     txt_test.setDefault_color(220, 220, 220);
     txt_test.setDefault_type("blended");
     txt_test.render();
-    txt_test.Setx((400-txt_test.getSurface()->w) / 2);
     main_w.getScreen().addComponent(txt_test);
+
+    txt_test.Setx((400-txt_test.getSurface()->w) / 2);
+    main_w.getScreen().refresh();
 
     txt_test.close_font();
 

@@ -30,6 +30,7 @@ void IMGSurface::setImg(string p)
 {
     path = p;
     initIMG();
+    setModified(true);
 }
 
 

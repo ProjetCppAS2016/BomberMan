@@ -1,6 +1,8 @@
 #ifndef SCREEN_H
 #define SCREEN_H
 #include "Surface.h"
+#include <vector>
+
 
 class Screen : public Surface
 {
@@ -16,17 +18,22 @@ class Screen : public Surface
         virtual void addComponent(Surface&);
         virtual void addStaticComponent(Surface&);
         void deleteComponent(Surface*);
+        void deleteStaticComponent();
         void deleteAllCompenents();
         void refresh();
         void refreshAll();
+        void clearScreen();
 
     protected:
 
     private:
+        Uint32 bgColor;
+
         typedef struct COMPONENT {COMPONENT* prev;
                                   COMPONENT* next;
-                                  Surface& object;} COMPONENT;
+                                  Surface *object;} COMPONENT;
         COMPONENT* listComponents;
+        std::vector<Surface*> listStaticsComponents;
 
         void blit(Surface& component)
         {
@@ -45,18 +52,18 @@ class Screen : public Surface
             if (t->next!=NULL) delall(t->next);
 
             SDL_Surface *tmp_s = new SDL_Surface;
-            *tmp_s = *(t->object.getSurface());
-            SDL_FreeSurface(t->object.getSurface());
-            t->object.setSurface(tmp_s);
+            *tmp_s = *(t->object->getSurface());
+            SDL_FreeSurface(t->object->getSurface());
+            t->object->setSurface(tmp_s);
             delete t;
         }
         void refscr(COMPONENT *t)
         {
             if (t->next!=NULL) refscr(t->next);
 
-            if (t->object.isModified()) {
-                blit(t->object);
-                t->object.setModified(false);
+            if (t->object->isModified()) {
+                blit(*(t->object));
+                t->object->setModified(false);
             }
         }
 };

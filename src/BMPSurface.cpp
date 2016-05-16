@@ -35,6 +35,7 @@ void BMPSurface::setTransparency(bool active, Uint32 t_color)
         SDL_SetColorKey(surface, SDL_SRCCOLORKEY, t_color);
     else
         SDL_SetColorKey(surface, 0, 0);
+    setModified(true);
 }
 
 void BMPSurface::setTransparency(bool active, int r, int g, int b)
@@ -43,12 +44,14 @@ void BMPSurface::setTransparency(bool active, int r, int g, int b)
         SDL_SetColorKey(surface, SDL_SRCCOLORKEY, SDL_MapRGB(surface->format, r, g, b));
     else
         SDL_SetColorKey(surface, 0, 0);
+    setModified(true);
 }
 
 void BMPSurface::setBmp(string p)
 {
     path = p;
     initBMP();
+    setModified(true);
 }
 
 

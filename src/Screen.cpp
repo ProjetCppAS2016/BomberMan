@@ -14,7 +14,8 @@ Screen::Screen(const Screen& other) : Surface(other), listComponents(NULL)
 
 void Screen::setBgColor(int r, int g, int b)
 {
-    SDL_FillRect(surface, NULL, SDL_MapRGB(surface->format, r, g, b));
+    bgColor = SDL_MapRGB(surface->format, r, g, b);
+    SDL_FillRect(surface, NULL, bgColor);
     SDL_Flip(surface);
 }
 
@@ -22,14 +23,14 @@ void Screen::addComponent(Surface& component)
 {
     if (listComponents==NULL) {
         listComponents = (COMPONENT*) malloc(sizeof(COMPONENT));
-        listComponents->object = component;
+        listComponents->object = &component;
         listComponents->next = NULL;
         listComponents->prev = NULL;
     } else {
         listComponents->prev = (COMPONENT*) malloc(sizeof(COMPONENT));
         listComponents->prev->next = listComponents;
         listComponents = listComponents->prev;
-        listComponents->object = component;
+        listComponents->object = &component;
         listComponents->prev = NULL;
     }
 
@@ -39,7 +40,14 @@ void Screen::addComponent(Surface& component)
 
 void Screen::addStaticComponent(Surface& component)
 {
+    listStaticsComponents.push_back(&component);
     blit(component);
+    SDL_Flip(surface);
+}
+void Screen::deleteStaticComponent()
+{
+    listStaticsComponents.pop_back();
+    refresh();
     SDL_Flip(surface);
 }
 
@@ -54,11 +62,10 @@ void Screen::deleteComponent(Surface* component)
         if (tmp->next != NULL)
             tmp->next->prev = tmp->prev;
 
-        *tmp_s = *(tmp->object.getSurface());
-        SDL_FreeSurface(tmp->object.getSurface());
-        tmp->object.setSurface(tmp_s);
+        *tmp_s = *(tmp->object->getSurface());
+        SDL_FreeSurface(tmp->object->getSurface());
+        tmp->object->setSurface(tmp_s);
         delete tmp;
-        SDL_Flip(surface);
     }
 }
 
@@ -66,13 +73,21 @@ void Screen::deleteAllCompenents()
 {
     if (listComponents!=NULL) {
         delall(listComponents);
-        SDL_Flip(surface);
     }
+}
+
+void Screen::clearScreen()
+{
+    SDL_FillRect(surface, NULL, bgColor);
+    const int taille = listStaticsComponents.size();
+    for (int i=0; i<taille; i++)
+        blit(*(listStaticsComponents[i]));
 }
 
 void Screen::refresh()
 {
     if (listComponents != NULL) {
+        clearScreen();
         refscr(listComponents);
         SDL_Flip(surface);
     }
@@ -81,8 +96,9 @@ void Screen::refresh()
 void Screen::refreshAll()
 {
     COMPONENT *tmp = listComponents;
+    clearScreen();
     while (tmp!=NULL) {
-        blit(tmp->object);
+        blit(*(tmp->object));
         tmp = tmp->next;
     }
     SDL_Flip(surface);

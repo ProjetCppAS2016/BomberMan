@@ -15,12 +15,11 @@ class FlatSurface : public Surface
         FlatSurface(const FlatSurface& other);
 
         int Getheight() { return height; }
-        void Setheight(int val) { height = val; }
+        void Setheight(int val) { height = val; setModified(true); }
         int Getwidth() { return width; }
-        void Setwidth(int val) { width = val; }
+        void Setwidth(int val) { width = val; setModified(true); }
         Uint32 getColor() { return color; }
-        void setColor(int r, int g, int b)
-        { color = SDL_MapRGB(surface->format, r, g, b); SDL_FillRect(surface, NULL, color); }
+        void setColor(int, int, int);
 
     protected:
 
