@@ -18,11 +18,8 @@ int main(int argv, char** args)
 
     Window main_w (400, 800, "BomberMan", "icon.bmp");
     main_w.getScreen().setBgColor(10, 10, 10);
-    BMPSurface test("icon.bmp");
+    IMGSurface test("cutie.png");
     main_w.getScreen().addComponent(test);
-    test.Setx(200);
-    test.Sety(200);
-
 
     Text txt_test("Rainbow Dash!", "PonyRides.ttf", 67);
     txt_test.setDefault_color(220, 220, 220);

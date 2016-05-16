@@ -20,7 +20,7 @@ class Text : public Surface
         void setDefault_size(int s) { default_size = s; }
         void setDefault_type(std::string t) { default_type = t; }
         void setDefault_color(SDL_Color *c) { *default_color = *c; }
-        void setDefault_color(int, int, int);
+        void setDefault_color(Uint8, Uint8, Uint8);
         TTF_Font* getDefault_font() { return default_font; }
         std::string getText() { return value; }
         std::string getDefault_type() { return default_type; }

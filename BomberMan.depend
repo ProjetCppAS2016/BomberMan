@@ -215,7 +215,7 @@
 	<SDL/SDL.h>
 	<iostream>
 
-1463388032 c:\users\shiro\desktop\projettut[c++]\bomberman\include\surface.h
+1463394566 c:\users\shiro\desktop\projettut[c++]\bomberman\include\surface.h
 	<SDL/SDL.h>
 	<iostream>
 
@@ -224,7 +224,7 @@
 	<iostream>
 	"Surface.h"
 
-1463387687 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\main.cpp
+1463390853 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\main.cpp
 	<iostream>
 	<SDL/SDL.h>
 	<SDL/SDL_ttf.h>
@@ -232,7 +232,7 @@
 	"IMGSurface.h"
 	"Text.h"
 
-1463380439 c:\users\shiro\desktop\projettut[c++]\bomberman\include\screen.h
+1463398379 c:\users\shiro\desktop\projettut[c++]\bomberman\include\screen.h
 	"Surface.h"
 
 1463380439 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\screen.cpp
@@ -271,7 +271,7 @@
 1463387838 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\imgsurface.cpp
 	"IMGSurface.h"
 
-1463387687 c:\users\shiro\desktop\projettut[c++]\bomberman\include\imgsurface.h
+1463394541 c:\users\shiro\desktop\projettut[c++]\bomberman\include\imgsurface.h
 	"Surface.h"
 	<SDL\SDL_image.h>
 
@@ -280,10 +280,10 @@
 	"begin_code.h"
 	"close_code.h"
 
-1463380439 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\text.cpp
+1463390247 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\text.cpp
 	"Text.h"
 
-1463380439 c:\users\shiro\desktop\projettut[c++]\bomberman\include\text.h
+1463389978 c:\users\shiro\desktop\projettut[c++]\bomberman\include\text.h
 	<iostream>
 	<SDL/SDL_ttf.h>
 	"Surface.h"

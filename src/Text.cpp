@@ -36,10 +36,10 @@ void Text::setFont(string f)
     default_font = TTF_OpenFont(f.c_str(), default_size);
 }
 
-void Text::setDefault_color(int r, int g, int b)
+void Text::setDefault_color(Uint8 r, Uint8 g, Uint8 b)
 {
     if (default_color==NULL)
-        default_color = (SDL_Color*) malloc(3*sizeof(int));
+        default_color = new SDL_Color;
     default_color->r = r;
     default_color->g = g;
     default_color->b = b;
