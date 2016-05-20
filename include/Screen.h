@@ -73,10 +73,7 @@ class Screen : public Surface
             if (t!=NULL) {
                 if (t->next!=NULL) refscr(t->next);
 
-                if (t->object->isModified()) {
-                    blit(*(t->object));
-                    t->object->setModified(false);
-                }
+                blit(*(t->object));
             }
         }
 };

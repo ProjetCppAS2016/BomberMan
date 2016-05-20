@@ -33,8 +33,7 @@ int main(int argv, char** args)
     SDL_Delay(5000);
 
     main_w.getScreen().setAuto_refresh(false);*/
-main_w.getScreen().refresh();
-main_w.getScreen().refresh();
+
     txt_test.close_font();
 
     main_w.waitEvent(SDL_QUIT);

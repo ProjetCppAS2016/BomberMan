@@ -18,19 +18,17 @@ class Surface
         SDL_Surface* getSurface() { return surface; }
         void setSurface(SDL_Surface* s) { surface = s; }
         int getDisp_h() { return disp_h; }
-        void setDisp_h(int h) { disp_h = h; setModified(true); }
+        void setDisp_h(int h) { disp_h = h; }
         int getDisp_w() { return disp_w; }
-        void setDisp_w(int w) { disp_w = w; setModified(true); }
+        void setDisp_w(int w) { disp_w = w; }
         int Getx() { return x; }
-        void Setx(int val) { x = val; setModified(true); }
+        void Setx(int val) { x = val; }
         int Gety() { return y; }
-        void Sety(int val) { y = val; setModified(true); }
-        bool isModified() { return modified; }
-        void setModified(bool val) { modified = val; }
+        void Sety(int val) { y = val; }
 
         void setAlpha(bool, int);
-        void hide() { setAlpha(true, 0); setModified(true); }
-        void show() { setAlpha(false, 0); setModified(true); }
+        void hide() { setAlpha(true, 0); }
+        void show() { setAlpha(false, 0); }
 
     protected:
         SDL_Surface *surface;
@@ -38,7 +36,6 @@ class Surface
         int y;
         int disp_w;
         int disp_h;
-        bool modified;
 
     private:
 };

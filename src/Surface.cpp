@@ -35,7 +35,6 @@ void Surface::setAlpha(bool active, int alpha)
         SDL_SetAlpha(surface, SDL_SRCALPHA, alpha);
     else
         SDL_SetAlpha(surface, 0, 0);
-    setModified(true);
 }
 
 

@@ -62,8 +62,6 @@ class Text : public Surface
             }
             else if (default_type=="blended")
                 surface = TTF_RenderText_Blended(default_font, value.c_str(), *default_color);
-
-            setModified(true);
         }
 };
 

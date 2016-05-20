@@ -15,9 +15,9 @@ class FlatSurface : public Surface
         FlatSurface(const FlatSurface& other);
 
         int Getheight() { return height; }
-        void Setheight(int val) { height = val; setModified(true); }
+        void Setheight(int val) { height = val; }
         int Getwidth() { return width; }
-        void Setwidth(int val) { width = val; setModified(true); }
+        void Setwidth(int val) { width = val; }
         Uint32 getColor() { return color; }
         void setColor(int, int, int);
 
