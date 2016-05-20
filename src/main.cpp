@@ -28,10 +28,13 @@ int main(int argv, char** args)
     main_w.getScreen().addComponent(txt_test);
 
     txt_test.Setx((400-txt_test.getSurface()->w) / 2);
-    BMPSurface icone("");
-    main_w.getScreen().addComponent(icone);
-    main_w.getScreen().refresh();
+    /*main_w.getScreen().setAuto_refresh(true);
 
+    SDL_Delay(5000);
+
+    main_w.getScreen().setAuto_refresh(false);*/
+main_w.getScreen().refresh();
+main_w.getScreen().refresh();
     txt_test.close_font();
 
     main_w.waitEvent(SDL_QUIT);

@@ -6,18 +6,6 @@
 
 using namespace std;
 
-void Window::init()
-{
-    SDL_Surface *s;
-    if (icon.getSurface()!=NULL)
-        SDL_WM_SetIcon(icon.getSurface(), NULL);
-    s = SDL_SetVideoMode(width, height, 32, SDL_HWSURFACE | SDL_DOUBLEBUF);
-    if (s==NULL) {
-        fprintf(stderr, "Erreur dans l'initialisation de la fenêtre: %s", SDL_GetError());
-        exit(EXIT_FAILURE);
-    } else screen = new Screen(s);
-}
-
 Window::Window(int w, int h) : width (w), height(h), icon()
 {
     init();

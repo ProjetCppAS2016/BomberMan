@@ -47,6 +47,7 @@
 		<Unit filename="include/FlatSurface.h" />
 		<Unit filename="include/IMGSurface.h" />
 		<Unit filename="include/Screen.h" />
+		<Unit filename="include/Structures.h" />
 		<Unit filename="include/Surface.h" />
 		<Unit filename="include/Text.h" />
 		<Unit filename="include/Window.h" />

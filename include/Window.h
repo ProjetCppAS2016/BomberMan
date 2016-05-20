@@ -1,6 +1,7 @@
 #ifndef WINDOW_H
 #define WINDOW_H
 #include <SDL/SDL.h>
+#include <SDL/SDL_thread.h>
 #include <iostream>
 #include <vector>
 #include "Surface.h"
@@ -10,10 +11,9 @@
 class Window
 {
     public:
-        Window(int, int);
-        Window(int, int, std::string);
-        Window(int, int, std::string, std::string);
-        void init();
+        Window(int height, int width);
+        Window(int height, int width, std::string title);
+        Window(int height, int width, std::string title, std::string icon);
         ~Window();
         Window(const Window& other);
 
@@ -23,8 +23,8 @@ class Window
         std::string getTitle() { return title; }
         Screen& getScreen() { return (*screen); }
 
-        void waitEvent(Uint8);
-        void showCursor(bool);
+        void waitEvent(Uint8 event);
+        void showCursor(bool value);
 
     protected:
 
@@ -34,6 +34,17 @@ class Window
         Screen* screen;
         std::string title;
         BMPSurface icon;
+        void init()
+        {
+            SDL_Surface *s;
+            if (icon.getSurface()!=NULL)
+                SDL_WM_SetIcon(icon.getSurface(), NULL);
+            s = SDL_SetVideoMode(width, height, 32, SDL_HWSURFACE | SDL_DOUBLEBUF);
+            if (s==NULL) {
+                fprintf(stderr, "Erreur dans l'initialisation de la fenêtre: %s", SDL_GetError());
+                exit(EXIT_FAILURE);
+            } else screen = new Screen(s);
+        }
 };
 
 #endif // WINDOW_H

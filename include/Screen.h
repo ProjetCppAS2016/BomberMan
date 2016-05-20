@@ -1,6 +1,7 @@
 #ifndef SCREEN_H
 #define SCREEN_H
 #include "Surface.h"
+#include "Structures.h"
 #include <vector>
 
 
@@ -8,33 +9,43 @@ class Screen : public Surface
 {
     public:
         Screen();
-        Screen(SDL_Surface*);
+        Screen(SDL_Surface* surface);
         ~Screen();
         Screen(const Screen& other);
 
-        void setBgColor(int, int, int);
-        Surface& getComponent(int);
+        void setBgColor(int red, int green, int blue);
+        void setFps(int f) { fps = f; }
+        int getFps() { return fps; }
 
-        virtual void addComponent(Surface&);
-        virtual void addStaticComponent(Surface&);
-        void deleteComponent(Surface*);
+
+        virtual void addComponent(Surface& component);
+        virtual void addStaticComponent(Surface& component);
+        void deleteComponent(Surface* component);
         void deleteStaticComponent();
         void deleteAllCompenents();
         void refresh();
         void refreshAll();
         void clearScreen();
+        void setAuto_refresh(bool activated);
+        void auto_ref();
 
     protected:
 
     private:
         Uint32 bgColor;
-
-        typedef struct COMPONENT {COMPONENT* prev;
-                                  COMPONENT* next;
-                                  Surface *object;} COMPONENT;
         COMPONENT* listComponents;
         std::vector<Surface*> listStaticsComponents;
+        bool auto_refresh;
+        SDL_Thread *thread_ar;
+        MUTEX *scr_mutexes;
+        int fps;
 
+        void m_init()
+        {
+            scr_mutexes = new(MUTEX);
+            scr_mutexes->m_components = SDL_CreateMutex();
+            scr_mutexes->m_screen = SDL_CreateMutex();
+        }
         void blit(Surface& component)
         {
             SDL_Rect position;
@@ -59,11 +70,13 @@ class Screen : public Surface
         }
         void refscr(COMPONENT *t)
         {
-            if (t->next!=NULL) refscr(t->next);
+            if (t!=NULL) {
+                if (t->next!=NULL) refscr(t->next);
 
-            if (t->object->isModified()) {
-                blit(*(t->object));
-                t->object->setModified(false);
+                if (t->object->isModified()) {
+                    blit(*(t->object));
+                    t->object->setModified(false);
+                }
             }
         }
 };
