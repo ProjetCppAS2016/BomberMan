@@ -14,9 +14,7 @@ class Screen : public Surface
         Screen(const Screen& other);
 
         void setBgColor(int red, int green, int blue);
-        void setFps(int f) { fps = f; }
-        int getFps() { return fps; }
-
+        void setFps(int f) { fps = (1000-(1000%f))/f; }
 
         virtual void addComponent(Surface& component);
         virtual void addStaticComponent(Surface& component);
@@ -28,6 +26,7 @@ class Screen : public Surface
         void clearScreen();
         void setAuto_refresh(bool activated);
         void auto_ref();
+        void synchronise() { SDL_CondWait(c_sync, scr_mutexes->m_sync); }
 
     protected:
 
@@ -38,6 +37,7 @@ class Screen : public Surface
         bool auto_refresh;
         SDL_Thread *thread_ar;
         MUTEX *scr_mutexes;
+        SDL_cond *c_sync;
         int fps;
 
         void m_init()
@@ -45,6 +45,8 @@ class Screen : public Surface
             scr_mutexes = new(MUTEX);
             scr_mutexes->m_components = SDL_CreateMutex();
             scr_mutexes->m_screen = SDL_CreateMutex();
+            scr_mutexes->m_sync = SDL_CreateMutex();
+            c_sync = SDL_CreateCond();
         }
         void blit(Surface& component)
         {

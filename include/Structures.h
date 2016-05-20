@@ -12,6 +12,7 @@ typedef struct MUTEX
 {
     SDL_mutex *m_screen;
     SDL_mutex *m_components;
+    SDL_mutex *m_sync;
 } MUTEX;
 
 /*typedef struct CONDITION

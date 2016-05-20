@@ -10,6 +10,7 @@ Screen::~Screen()
     deleteAllCompenents();
     SDL_DestroyMutex(scr_mutexes->m_components);
     SDL_DestroyMutex(scr_mutexes->m_screen);
+    SDL_DestroyMutex(scr_mutexes->m_sync);
     delete(scr_mutexes);
     auto_refresh = false;
     if (thread_ar != NULL) SDL_WaitThread(thread_ar, NULL);
@@ -139,9 +140,11 @@ void Screen::refreshAll()
 
 void Screen::auto_ref()
 {
-    int ms = 60 - fps;
     while (auto_refresh) {
-        SDL_Delay(ms);
+        SDL_mutexP(scr_mutexes->m_sync);
+        SDL_Delay(fps);
+        SDL_mutexV(scr_mutexes->m_sync);
+        SDL_CondBroadcast(c_sync);
         refresh();
     }
 }
@@ -163,6 +166,7 @@ void Screen::setAuto_refresh(bool activated)
         if (thread_ar != NULL) SDL_WaitThread(thread_ar, NULL);
     }
 }
+
 
 
 
