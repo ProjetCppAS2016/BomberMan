@@ -25,13 +25,13 @@ class Screen : public Surface
         void refreshAll();
         void clearScreen();
         void activateA_R(bool value);
-        static void synchronise() { SDL_CondWait(c_sync, m_sync); }
+        static void synchronise();
+                static SDL_mutex *m_sync;
+        static SDL_cond *c_sync;
 
     protected:
 
     private:
-        static SDL_mutex *m_sync;
-        static SDL_cond *c_sync;
 
         Uint32 bgColor;
         COMPONENT* listComponents;
@@ -46,6 +46,8 @@ class Screen : public Surface
             scr_mutexes = new(MUTEX);
             scr_mutexes->m_components = SDL_CreateMutex();
             scr_mutexes->m_screen = SDL_CreateMutex();
+            m_sync = SDL_CreateMutex();
+            c_sync = SDL_CreateCond();
         }
         void blit(Surface& component)
         {

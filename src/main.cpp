@@ -28,14 +28,14 @@ int main(int argv, char** args)
     main_w.getScreen().addComponent(txt_test);
 
     txt_test.Setx((400-txt_test.getSurface()->w) / 2);
-    main_w.getScreen().setAuto_refresh(true);
 
+    main_w.getScreen().activateA_R(true);
     for (int i=0; i<100; i++) {
         txt_test.Sety(txt_test.Gety()+1);
-        main_w.getScreen().synchronise();
+        Screen::synchronise();
     }
 
-    main_w.getScreen().setAuto_refresh(false);
+    main_w.getScreen().activateA_R(false);
 
     txt_test.close_font();
     main_w.waitEvent(SDL_QUIT);

@@ -225,7 +225,7 @@
 	<iostream>
 	"Surface.h"
 
-1463779071 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\main.cpp
+1463839490 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\main.cpp
 	<iostream>
 	<SDL/SDL.h>
 	<SDL/SDL_ttf.h>
@@ -233,12 +233,12 @@
 	"IMGSurface.h"
 	"Text.h"
 
-1463780139 c:\users\shiro\desktop\projettut[c++]\bomberman\include\screen.h
+1463840414 c:\users\shiro\desktop\projettut[c++]\bomberman\include\screen.h
 	"Surface.h"
 	"Structures.h"
 	<vector>
 
-1463779239 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\screen.cpp
+1463840414 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\screen.cpp
 	"Screen.h"
 
 1463772479 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\surface.cpp
@@ -290,5 +290,14 @@
 	<SDL/SDL_ttf.h>
 	"Surface.h"
 
-1463778636 c:\users\shiro\desktop\projettut[c++]\bomberman\include\structures.h
+1463839179 c:\users\shiro\desktop\projettut[c++]\bomberman\include\structures.h
+
+1463839912 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\sprite.cpp
+	"Sprite.h"
+
+1463839751 c:\users\shiro\desktop\projettut[c++]\bomberman\include\sprite.h
+	<vector>
+	"Surface.h"
+	"BMPSurface.h"
+	"Structures.h"
 

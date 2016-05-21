@@ -1,23 +1,26 @@
 #include "Screen.h"
 
-Screen::Screen() : Surface(), listComponents(NULL), thread_ar(NULL), fps(25)
-{ m_init(); }
-Screen::Screen(SDL_Surface *s) : Surface(s), listComponents(NULL), thread_ar(NULL), fps(25)
-{ m_init(); }
+SDL_mutex* Screen::m_sync = SDL_CreateMutex();
+SDL_cond* Screen::c_sync = SDL_CreateCond();
+
+Screen::Screen() : Surface(), listComponents(NULL), auto_refresh(0), thread_ar(NULL), fps(25)
+{ t_init(); }
+Screen::Screen(SDL_Surface *s) : Surface(s), listComponents(NULL), auto_refresh(0), thread_ar(NULL), fps(25)
+{ t_init(); }
 
 Screen::~Screen()
 {
     deleteAllCompenents();
     SDL_DestroyMutex(scr_mutexes->m_components);
     SDL_DestroyMutex(scr_mutexes->m_screen);
-    SDL_DestroyMutex(scr_mutexes->m_sync);
+    SDL_DestroyMutex(m_sync);
     delete(scr_mutexes);
     auto_refresh = false;
     if (thread_ar != NULL) SDL_WaitThread(thread_ar, NULL);
 }
 
-Screen::Screen(const Screen& other) : Surface(other), listComponents(NULL), thread_ar(NULL), fps(other.fps)
-{ m_init(); }
+Screen::Screen(const Screen& other) : Surface(other), listComponents(NULL), auto_refresh(0), fps(other.fps)
+{ t_init(); }
 
 
 void Screen::setBgColor(int r, int g, int b)
@@ -138,35 +141,32 @@ void Screen::refreshAll()
     SDL_mutexV(scr_mutexes->m_components);
 }
 
-void Screen::auto_ref()
-{
-    while (auto_refresh) {
-        SDL_mutexP(scr_mutexes->m_sync);
-        SDL_Delay(fps);
-        SDL_mutexV(scr_mutexes->m_sync);
-        SDL_CondBroadcast(c_sync);
-        refresh();
-    }
-}
-
 int ar_thread(void* scr)
 {
     Screen *screen = (Screen*) scr;
-    screen->auto_ref();
+    screen->activateA_R(true);
     return 0;
 }
 
-void Screen::setAuto_refresh(bool activated)
+void Screen::activateA_R(bool activated)
 {
-    if (activated) {
-        auto_refresh = true;
+    if (activated && auto_refresh==0) {
+        auto_refresh = 1;
         thread_ar = SDL_CreateThread(ar_thread, this);
-    } else {
-        auto_refresh = false;
+    } else if (activated && auto_refresh==1) {
+        auto_refresh = 2;
+        while (auto_refresh) {
+            SDL_mutexP(m_sync);
+            SDL_Delay(fps);
+            SDL_mutexV(m_sync);
+            SDL_CondBroadcast(c_sync);
+            refresh();
+        }
+    } else if (!activated && auto_refresh==2) {
+        auto_refresh = 0;
         if (thread_ar != NULL) SDL_WaitThread(thread_ar, NULL);
     }
 }
-
 
 
 
