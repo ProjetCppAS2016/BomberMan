@@ -201,7 +201,7 @@
 	"begin_code.h"
 	"close_code.h"
 
-1463767353 c:\users\shiro\desktop\projettut[c++]\bomberman\include\window.h
+1464102049 c:\users\shiro\desktop\projettut[c++]\bomberman\include\window.h
 	<SDL/SDL.h>
 	<SDL/SDL_thread.h>
 	<iostream>
@@ -225,23 +225,27 @@
 	<iostream>
 	"Surface.h"
 
-1463839490 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\main.cpp
+1464209676 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\main.cpp
 	<iostream>
 	<SDL/SDL.h>
 	<SDL/SDL_ttf.h>
+	<vector>
 	"Window.h"
 	"IMGSurface.h"
 	"Text.h"
+	"Sprite.h"
 
-1463840414 c:\users\shiro\desktop\projettut[c++]\bomberman\include\screen.h
+1464208796 c:\users\shiro\desktop\projettut[c++]\bomberman\include\screen.h
+	<vector>
+	<pthread.h>
 	"Surface.h"
 	"Structures.h"
-	<vector>
 
-1463840414 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\screen.cpp
+1464209438 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\screen.cpp
 	"Screen.h"
+	<iostream>
 
-1463772479 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\surface.cpp
+1464104660 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\surface.cpp
 	<SDL/SDL.h>
 	<iostream>
 	"Surface.h"
@@ -255,7 +259,7 @@
 	"Surface.h"
 	<SDL/SDL.h>
 
-1463767353 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\window.cpp
+1464102292 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\window.cpp
 	"Window.h"
 	"Surface.h"
 	"Screen.h"
@@ -265,12 +269,12 @@
 1463412184 c:\users\shiro\desktop\projettut[c++]\bomberman\include\bmpsurface.h
 	"Surface.h"
 
-1463772713 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\bmpsurface.cpp
+1464103501 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\bmpsurface.cpp
 	"Surface.h"
 	"BMPSurface.h"
 	"SDL/SDL.h"
 
-1463772773 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\imgsurface.cpp
+1464103355 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\imgsurface.cpp
 	"IMGSurface.h"
 
 1463412184 c:\users\shiro\desktop\projettut[c++]\bomberman\include\imgsurface.h
@@ -285,19 +289,111 @@
 1463412185 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\text.cpp
 	"Text.h"
 
-1463772681 c:\users\shiro\desktop\projettut[c++]\bomberman\include\text.h
+1464102833 c:\users\shiro\desktop\projettut[c++]\bomberman\include\text.h
 	<iostream>
 	<SDL/SDL_ttf.h>
 	"Surface.h"
 
-1463839179 c:\users\shiro\desktop\projettut[c++]\bomberman\include\structures.h
-
-1463839912 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\sprite.cpp
-	"Sprite.h"
-
-1463839751 c:\users\shiro\desktop\projettut[c++]\bomberman\include\sprite.h
-	<vector>
+1464207329 c:\users\shiro\desktop\projettut[c++]\bomberman\include\structures.h
+	<pthread.h>
 	"Surface.h"
-	"BMPSurface.h"
+
+1464209097 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\sprite.cpp
+	"Sprite.h"
+	"Screen.h"
+
+1464104767 c:\users\shiro\desktop\projettut[c++]\bomberman\include\sprite.h
+	<vector>
+	<cstdarg>
+	<pthread.h>
+	"Surface.h"
+	"Structures.h"
+
+1433764774 c:\program files (x86)\codeblocks\mingw\include\sys\types.h
+	<_mingw.h>
+	<stddef.h>
+	<parts/time.h>
+
+1433764774 c:\program files (x86)\codeblocks\mingw\include\_mingw.h
+
+1433764774 c:\program files (x86)\codeblocks\mingw\include\parts\time.h
+
+1433764774 c:\program files (x86)\codeblocks\mingw\include\stdio.h
+	<_mingw.h>
+	<stddef.h>
+	<stdarg.h>
+	<sys/types.h>
+
+1433764774 c:\program files (x86)\codeblocks\mingw\include\stdlib.h
+	<_mingw.h>
+	<stddef.h>
+
+1433764774 c:\program files (x86)\codeblocks\mingw\include\malloc.h
+	<_mingw.h>
+	<stdlib.h>
+
+1433764774 c:\program files (x86)\codeblocks\mingw\include\memory.h
+	<string.h>
+
+1433764774 c:\program files (x86)\codeblocks\mingw\include\string.h
+	<_mingw.h>
+	<stddef.h>
+
+1433764774 c:\program files (x86)\codeblocks\mingw\include\strings.h
+	<string.h>
+
+1433764774 c:\program files (x86)\codeblocks\mingw\include\inttypes.h
+	<_mingw.h>
+	<stdint.h>
+	<stddef.h>
+
+1433764774 c:\program files (x86)\codeblocks\mingw\include\stdint.h
+	<stddef.h>
+
+1433764774 c:\program files (x86)\codeblocks\mingw\include\ctype.h
+	<_mingw.h>
+	<stddef.h>
+
+1377999547 c:\program files (x86)\codeblocks\mingw\include\iconv.h
+	"iconv.h"
+	<stddef.h>
+	<errno.h>
+	<stddef.h>
+	<stdio.h>
+	<time.h>
+	<wchar.h>
+
+1433764774 c:\program files (x86)\codeblocks\mingw\include\errno.h
+	<_mingw.h>
+
+1433764774 c:\program files (x86)\codeblocks\mingw\include\time.h
+	<_mingw.h>
+	<parts/time.h>
+	<stddef.h>
+
+1433764774 c:\program files (x86)\codeblocks\mingw\include\wchar.h
+	<_mingw.h>
+	<wctype.h>
+	<sys/types.h>
+	<stddef.h>
+	<stdarg.h>
+	<parts/time.h>
+	<stdio.h>
+	<stdint.h>
+	<stdint.h>
+
+1433764774 c:\program files (x86)\codeblocks\mingw\include\wctype.h
+	<_mingw.h>
+	<stddef.h>
+
+1433764774 c:\program files (x86)\codeblocks\mingw\include\process.h
+	<_mingw.h>
+	<sys/types.h>
+	<stdint.h>
+
+1464181537 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\character.cpp
+	"Character.h"
+
+1464207156 c:\users\shiro\desktop\projettut[c++]\bomberman\include\character.h
 	"Structures.h"
 

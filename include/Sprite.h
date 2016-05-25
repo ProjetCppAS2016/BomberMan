@@ -2,8 +2,9 @@
 #define SPRITE_H
 
 #include <vector>
+#include <cstdarg>
+#include <pthread.h>
 #include "Surface.h"
-#include "BMPSurface.h"
 #include "Structures.h"
 
 
@@ -11,8 +12,8 @@ class Sprite : public Surface
 {
     public:
         Sprite();
-        Sprite(std::vector<BMPSurface*> const& tab);
-        Sprite(std::vector<BMPSurface*> const& tab, int nbr);
+        Sprite(int nbr, ...);
+        Sprite(int nbr, int time, ...);
         virtual ~Sprite();
         Sprite(const Sprite& other);
 
@@ -24,24 +25,29 @@ class Sprite : public Surface
 
         void displaySprite(bool value);
         void switchSurface(int index);
+        void addImg(Surface* img) { tab_img.push_back(img); }
+        void clearImgs();
 
     protected:
 
     private:
-        std::vector<BMPSurface*> tab_img;
+        std::vector<Surface*> tab_img;
         int nbr_img;
         int switch_time;
         bool displayed;
-        SDL_mutex *m_surf;
-        SDL_mutex *m_nbr;
-        SDL_mutex *m_time;
-        SDL_Thread *t_disp;
+        pthread_mutex_t *m_surf;
+        pthread_mutex_t *m_nbr;
+        pthread_mutex_t *m_time;
+        pthread_t t_disp;
 
         void m_init()
         {
-            m_surf = SDL_CreateMutex();
-            m_nbr = SDL_CreateMutex();
-            m_time = SDL_CreateMutex();
+            m_surf = new(pthread_mutex_t);
+            m_nbr = new(pthread_mutex_t);
+            m_time = new(pthread_mutex_t);
+            pthread_mutex_init(m_surf, NULL);
+            pthread_mutex_init(m_nbr, NULL);
+            pthread_mutex_init(m_time, NULL);
         }
 };
 

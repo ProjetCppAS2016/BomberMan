@@ -12,10 +12,12 @@ Surface::Surface(SDL_Surface* s, int x, int y, int w, int h) : surface(s), x(x),
 {}
 
 Surface::~Surface()
-{ SDL_FreeSurface(surface); }
+{ if (surface!=NULL) SDL_FreeSurface(surface); }
 
-Surface::Surface(const Surface& other) : x(other.x), y(other.y), disp_w(other.disp_w), disp_h(other.disp_h)
-{ *surface = *(other.surface); }
+Surface::Surface(Surface const& other) : surface(NULL), x(other.x), y(other.y), disp_w(other.disp_w), disp_h(other.disp_h)
+{
+    if (other.surface!=NULL) *surface = *(other.surface);
+}
 
 Surface& Surface::operator=(const Surface& rhs)
 {

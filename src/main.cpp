@@ -1,9 +1,11 @@
 #include <iostream>
 #include <SDL/SDL.h>
 #include <SDL/SDL_ttf.h>
+#include <vector>
 #include "Window.h"
 #include "IMGSurface.h"
 #include "Text.h"
+#include "Sprite.h"
 
 using namespace std;
 
@@ -18,26 +20,40 @@ int main(int argv, char** args)
 
     Window main_w (400, 800, "BomberMan", "icon.bmp");
     main_w.getScreen().setBgColor(10, 10, 10);
-    IMGSurface test("cutie.png");
-    main_w.getScreen().addStaticComponent(test);
+    IMGSurface *cutie = new IMGSurface("cutie.png");
+    main_w.getScreen().addStaticComponent(*cutie);
 
-    Text txt_test("Rainbow Dash!", "PonyRides.ttf", 60);
-    txt_test.setDefault_color(220, 220, 220);
-    txt_test.setDefault_type("blended");
-    txt_test.render();
-    main_w.getScreen().addComponent(txt_test);
+    Text txt_test1("Rainbow Dash!", "PonyRides.ttf", 60);
+    txt_test1.setDefault_color(220, 220, 220);
+    txt_test1.setDefault_type("blended");
+    txt_test1.render();
 
-    txt_test.Setx((400-txt_test.getSurface()->w) / 2);
+    Text txt_test2("Rainbow Dash!", "PonyRides.ttf", 70);
+    txt_test2.setDefault_color(220, 220, 220);
+    txt_test2.setDefault_type("blended");
+    txt_test2.render();
+
+    Sprite test_spt(2, 1000, &txt_test1, &txt_test2);
+    test_spt.Setx((400-test_spt.getSurface()->w) / 2);
+    main_w.getScreen().addComponent(test_spt);
+    main_w.getScreen().setFps(35);
 
     main_w.getScreen().activateA_R(true);
+
+    test_spt.displaySprite(true);
+
+    SDL_Delay(2000);
     for (int i=0; i<100; i++) {
-        txt_test.Sety(txt_test.Gety()+1);
-        Screen::synchronise();
+        test_spt.Sety(test_spt.Gety()+1);
+        Screen::synchronise(40);
     }
+
+    test_spt.displaySprite(false);
 
     main_w.getScreen().activateA_R(false);
 
-    txt_test.close_font();
+    txt_test1.close_font();
+    txt_test2.close_font();
     main_w.waitEvent(SDL_QUIT);
 
     TTF_Quit();

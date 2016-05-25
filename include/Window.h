@@ -14,7 +14,7 @@ class Window
         Window(int height, int width);
         Window(int height, int width, std::string title);
         Window(int height, int width, std::string title, std::string icon);
-        ~Window();
+        virtual ~Window();
         Window(const Window& other);
 
         int getWidth() { return width; }

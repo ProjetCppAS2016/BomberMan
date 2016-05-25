@@ -1,25 +1,52 @@
 #include "Screen.h"
+#include <iostream>
 
-SDL_mutex* Screen::m_sync = SDL_CreateMutex();
-SDL_cond* Screen::c_sync = SDL_CreateCond();
+using namespace std;
 
-Screen::Screen() : Surface(), listComponents(NULL), auto_refresh(0), thread_ar(NULL), fps(25)
+SYNC* Screen::synchronization = new (SYNC);
+
+void Screen::lockSync()
+{ pthread_mutex_lock(synchronization->m_sync);
+synchronization->locked=true; }
+void Screen::unlockSync()
+{ pthread_mutex_unlock(synchronization->m_sync);
+synchronization->locked=false; }
+
+void Screen::synchronise(int delay)
+{
+    if (synchronization->locked) {
+        if (synchronization->cond_locked)
+            pthread_mutex_lock(synchronization->m_sync);
+        synchronization->cond_locked = true;
+        pthread_cond_wait(synchronization->c_sync, synchronization->m_sync);
+        pthread_mutex_unlock(synchronization->m_sync);
+        synchronization->cond_locked = false;
+    }
+    SDL_Delay(delay);
+}
+
+
+Screen::Screen() : Surface(), listComponents(NULL), auto_refresh(false), fps(40)
 { t_init(); }
-Screen::Screen(SDL_Surface *s) : Surface(s), listComponents(NULL), auto_refresh(0), thread_ar(NULL), fps(25)
+Screen::Screen(SDL_Surface *s) : Surface(s), listComponents(NULL), auto_refresh(false), fps(40)
 { t_init(); }
 
 Screen::~Screen()
 {
-    deleteAllCompenents();
-    SDL_DestroyMutex(scr_mutexes->m_components);
-    SDL_DestroyMutex(scr_mutexes->m_screen);
-    SDL_DestroyMutex(m_sync);
+    deleteAllComponents();
+    if (auto_refresh) {
+        auto_refresh = false;
+        pthread_join(thread_ar, NULL);
+    }
+    pthread_mutex_destroy(scr_mutexes->m_components);
+    pthread_mutex_destroy(scr_mutexes->m_screen);
+    pthread_mutex_destroy(synchronization->m_sync);
+    pthread_cond_destroy(synchronization->c_sync);
+    delete(synchronization);
     delete(scr_mutexes);
-    auto_refresh = false;
-    if (thread_ar != NULL) SDL_WaitThread(thread_ar, NULL);
 }
 
-Screen::Screen(const Screen& other) : Surface(other), listComponents(NULL), auto_refresh(0), fps(other.fps)
+Screen::Screen(const Screen& other) : Surface(other), listComponents(NULL), auto_refresh(false), fps(other.fps)
 { t_init(); }
 
 
@@ -32,8 +59,8 @@ void Screen::setBgColor(int r, int g, int b)
 
 void Screen::addComponent(Surface& component)
 {
-    SDL_mutexP(scr_mutexes->m_components);
-    SDL_mutexP(scr_mutexes->m_screen);
+    pthread_mutex_lock(scr_mutexes->m_components);
+    pthread_mutex_lock(scr_mutexes->m_screen);
 
     if (listComponents==NULL) {
         listComponents = (COMPONENT*) malloc(sizeof(COMPONENT));
@@ -51,8 +78,8 @@ void Screen::addComponent(Surface& component)
     blit(component);
     SDL_Flip(surface);
 
-    SDL_mutexV(scr_mutexes->m_components);
-    SDL_mutexV(scr_mutexes->m_screen);
+    pthread_mutex_unlock(scr_mutexes->m_components);
+    pthread_mutex_unlock(scr_mutexes->m_screen);
 }
 
 void Screen::addStaticComponent(Surface& component)
@@ -70,7 +97,7 @@ void Screen::deleteStaticComponent()
 
 void Screen::deleteComponent(Surface* component)
 {
-    SDL_mutexP(scr_mutexes->m_components);
+    pthread_mutex_lock(scr_mutexes->m_components);
 
     COMPONENT *tmp = listComponents;
     SDL_Surface *tmp_s = new SDL_Surface;
@@ -87,35 +114,35 @@ void Screen::deleteComponent(Surface* component)
         delete tmp;
     }
 
-    SDL_mutexV(scr_mutexes->m_components);
+    pthread_mutex_unlock(scr_mutexes->m_components);
 }
 
-void Screen::deleteAllCompenents()
+void Screen::deleteAllComponents()
 {
-    SDL_mutexP(scr_mutexes->m_components);
+    pthread_mutex_lock(scr_mutexes->m_components);
 
     if (listComponents!=NULL) {
         delall(listComponents);
     }
 
-    SDL_mutexV(scr_mutexes->m_components);
+    pthread_mutex_unlock(scr_mutexes->m_components);
 }
 
 void Screen::clearScreen()
 {
-    SDL_mutexP(scr_mutexes->m_screen);
+    pthread_mutex_lock(scr_mutexes->m_screen);
 
     SDL_FillRect(surface, NULL, bgColor);
     const int taille = listStaticsComponents.size();
     for (int i=0; i<taille; i++)
         blit(*(listStaticsComponents[i]));
 
-    SDL_mutexV(scr_mutexes->m_screen);
+    pthread_mutex_unlock(scr_mutexes->m_screen);
 }
 
 void Screen::refresh()
 {
-    SDL_mutexP(scr_mutexes->m_components);
+    pthread_mutex_lock(scr_mutexes->m_components);
 
     if (listComponents != NULL) {
         clearScreen();
@@ -123,12 +150,12 @@ void Screen::refresh()
         SDL_Flip(surface);
     }
 
-    SDL_mutexV(scr_mutexes->m_components);
+    pthread_mutex_unlock(scr_mutexes->m_components);
 }
 
 void Screen::refreshAll()
 {
-    SDL_mutexP(scr_mutexes->m_components);
+    pthread_mutex_lock(scr_mutexes->m_components);
 
     COMPONENT *tmp = listComponents;
     clearScreen();
@@ -138,33 +165,31 @@ void Screen::refreshAll()
     }
     SDL_Flip(surface);
 
-    SDL_mutexV(scr_mutexes->m_components);
+    pthread_mutex_unlock(scr_mutexes->m_components);
 }
 
-int ar_thread(void* scr)
+void* autoref(void* scr)
 {
     Screen *screen = (Screen*) scr;
-    screen->activateA_R(true);
-    return 0;
+    int fps = screen->getFps();
+    while (screen->hasAuto_refresh()) {
+            Screen::lockSync();
+            SDL_Delay(fps);
+            Screen::broadcastSync();
+            Screen::unlockSync();
+            screen->refresh();
+    }
+    return NULL;
 }
 
 void Screen::activateA_R(bool activated)
 {
-    if (activated && auto_refresh==0) {
-        auto_refresh = 1;
-        thread_ar = SDL_CreateThread(ar_thread, this);
-    } else if (activated && auto_refresh==1) {
-        auto_refresh = 2;
-        while (auto_refresh) {
-            SDL_mutexP(m_sync);
-            SDL_Delay(fps);
-            SDL_mutexV(m_sync);
-            SDL_CondBroadcast(c_sync);
-            refresh();
-        }
-    } else if (!activated && auto_refresh==2) {
-        auto_refresh = 0;
-        if (thread_ar != NULL) SDL_WaitThread(thread_ar, NULL);
+    if (activated && !auto_refresh) {
+        auto_refresh = true;
+        pthread_create(&thread_ar, NULL, autoref, this);
+    } else if (!activated && auto_refresh) {
+        auto_refresh = false;
+        pthread_join(thread_ar, NULL);
     }
 }
 

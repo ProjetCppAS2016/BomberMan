@@ -11,7 +11,7 @@ class Text : public Surface
         Text();
         Text(std::string);
         Text(std::string, std::string, int);
-        ~Text();
+        virtual ~Text();
         Text(const Text& other);
         Text& operator=(const Text& rhs);
 
