@@ -45,6 +45,32 @@ Sprite::Sprite(const Sprite& other) : Surface(other), tab_img(), nbr_img(other.n
     m_init();
 }
 
+Sprite& Sprite::operator=(const Sprite& rhs)
+{
+    if (this == &rhs) return *this;
+
+    int s_rhs = rhs.tab_img.size(), s_this = tab_img.size();
+    if (s_rhs < s_this) {
+        for (int i=0; i<s_this-s_rhs; i++)
+            tab_img.push_back(NULL);
+    }
+    if (s_rhs > s_this) {
+        for (int i=0; i<s_rhs-s_this; i++)
+            tab_img.pop_back();
+    }
+    for (int i=0; i<s_rhs; i++)
+        *tab_img[i] = *(rhs.tab_img[i]);
+
+    nbr_img = rhs.nbr_img;
+    switch_time = rhs.switch_time;
+    displayed = false;
+    *m_surf = *(rhs.m_surf);
+    *m_nbr = *(rhs.m_nbr);
+    *m_time = *(rhs.m_time);
+    t_disp = rhs.t_disp;
+    return *this;
+}
+
 void Sprite::clearImgs()
 {
     int s = tab_img.size();

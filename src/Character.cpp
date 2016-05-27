@@ -1,6 +1,6 @@
 #include "Character.h"
 
-Character::Character() : x(0), y(0), grid_x(0), grid_y(0)
+Character::Character() : x(0), y(0), grid_x(0), grid_y(0), charSprite()
 {
     for (int i=0; i<GRID_SIZE; i++) {
         for (int j=0; j<GRID_SIZE; j++)
@@ -8,12 +8,17 @@ Character::Character() : x(0), y(0), grid_x(0), grid_y(0)
     }
 }
 
-Character::Character(int x, int y, int g_x, int g_y, TILE* tab[][GRID_SIZE]) : x(x), y(y), grid_x(g_x), grid_y(g_y)
+Character::Character(int x, int y, int g_x, int g_y,
+                     Sprite& spte, TILE* tab[][GRID_SIZE]) : x(x), y(y),
+                                                             grid_x(g_x),
+                                                             grid_y(g_y),
+                                                             charSprite(spte)
 {
     for (int i=0; i<GRID_SIZE; i++) {
         for (int j=0; j<GRID_SIZE; j++)
             grid[i][j] = tab[i][j];
     }
+    charSprite.displaySprite(true);
 }
 
 Character::~Character()
@@ -21,7 +26,8 @@ Character::~Character()
 
 Character::Character(const Character& other) : x(other.x), y(other.y),
                                                grid_x(other.grid_x),
-                                               grid_y(other.grid_y)
+                                               grid_y(other.grid_y),
+                                               charSprite(other.charSprite)
 {
     for (int i=0; i<GRID_SIZE; i++) {
         for (int j=0; j<GRID_SIZE; j++)

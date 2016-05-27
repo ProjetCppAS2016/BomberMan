@@ -225,7 +225,7 @@
 	<iostream>
 	"Surface.h"
 
-1464209676 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\main.cpp
+1464359564 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\main.cpp
 	<iostream>
 	<SDL/SDL.h>
 	<SDL/SDL_ttf.h>
@@ -250,12 +250,12 @@
 	<iostream>
 	"Surface.h"
 
-1463772730 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\flatsurface.cpp
+1464370629 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\flatsurface.cpp
 	<SDL/SDL.h>
 	"Surface.h"
 	"FlatSurface.h"
 
-1463772597 c:\users\shiro\desktop\projettut[c++]\bomberman\include\flatsurface.h
+1464366610 c:\users\shiro\desktop\projettut[c++]\bomberman\include\flatsurface.h
 	"Surface.h"
 	<SDL/SDL.h>
 
@@ -266,18 +266,18 @@
 	<SDL/SDL.h>
 	<iostream>
 
-1463412184 c:\users\shiro\desktop\projettut[c++]\bomberman\include\bmpsurface.h
+1464366631 c:\users\shiro\desktop\projettut[c++]\bomberman\include\bmpsurface.h
 	"Surface.h"
 
-1464103501 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\bmpsurface.cpp
+1464370629 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\bmpsurface.cpp
 	"Surface.h"
 	"BMPSurface.h"
 	"SDL/SDL.h"
 
-1464103355 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\imgsurface.cpp
+1464370632 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\imgsurface.cpp
 	"IMGSurface.h"
 
-1463412184 c:\users\shiro\desktop\projettut[c++]\bomberman\include\imgsurface.h
+1464366582 c:\users\shiro\desktop\projettut[c++]\bomberman\include\imgsurface.h
 	"Surface.h"
 	<SDL\SDL_image.h>
 
@@ -302,7 +302,7 @@
 	"Sprite.h"
 	"Screen.h"
 
-1464104767 c:\users\shiro\desktop\projettut[c++]\bomberman\include\sprite.h
+1464366582 c:\users\shiro\desktop\projettut[c++]\bomberman\include\sprite.h
 	<vector>
 	<cstdarg>
 	<pthread.h>
@@ -391,9 +391,10 @@
 	<sys/types.h>
 	<stdint.h>
 
-1464181537 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\character.cpp
+1464370665 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\character.cpp
 	"Character.h"
 
-1464207156 c:\users\shiro\desktop\projettut[c++]\bomberman\include\character.h
+1464370494 c:\users\shiro\desktop\projettut[c++]\bomberman\include\character.h
 	"Structures.h"
+	"Sprite.h"
 

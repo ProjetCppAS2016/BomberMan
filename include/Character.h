@@ -2,15 +2,17 @@
 #define CHARACTER_H
 
 #include "Structures.h"
+#include "Sprite.h"
 
 
 class Character
 {
     public:
         Character();
-        Character(int x, int y, int g_x, int g_y, TILE* tab[][GRID_SIZE]);
+        Character(int x, int y, int g_x, int g_y, Sprite& spte, TILE* tab[][GRID_SIZE]);
         ~Character();
         Character(const Character& other);
+
 
         int Getx() { return x; }
         void Setx(int val) { x = val; }
@@ -20,6 +22,7 @@ class Character
         void Setgrid_x(int val) { grid_x = val; }
         int Getgrid_y() { return grid_y; }
         void Setgrid_y(int val) { grid_y = val; }
+        Sprite& getSprite() { return charSprite; }
 
         void deplacer(moves direction);
 
@@ -27,7 +30,17 @@ class Character
 
     private:
         int x, y, sizeX, sizeY, grid_x, grid_y;
+        Sprite charSprite;
         TILE* grid[GRID_SIZE][GRID_SIZE];
 };
 
 #endif // CHARACTER_H
+
+
+
+
+
+
+
+
+

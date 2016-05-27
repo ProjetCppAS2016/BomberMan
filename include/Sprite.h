@@ -16,6 +16,7 @@ class Sprite : public Surface
         Sprite(int nbr, int time, ...);
         virtual ~Sprite();
         Sprite(const Sprite& other);
+        Sprite& operator=(const Sprite& rhs);
 
         int Getnbr_img() { return nbr_img; }
         void Setnbr_img(int val);

@@ -28,6 +28,16 @@ BMPSurface::~BMPSurface()
 BMPSurface::BMPSurface(const BMPSurface& other) : Surface(other), path(other.path)
 {}
 
+BMPSurface& BMPSurface::operator=(const BMPSurface& rhs)
+{
+    if (this == &rhs) return *this;
+
+    (Surface) (*this) = (Surface) rhs;
+    path = rhs.path;
+    return *this;
+}
+
+
 
 void BMPSurface::setTransparency(bool active, Uint32 t_color)
 {

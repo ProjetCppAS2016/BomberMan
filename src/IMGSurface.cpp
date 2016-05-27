@@ -26,6 +26,15 @@ IMGSurface::~IMGSurface()
 IMGSurface::IMGSurface(const IMGSurface& other) : Surface(other), path(other.path)
 {}
 
+IMGSurface& IMGSurface::operator=(const IMGSurface& rhs)
+{
+    if (this == &rhs) return *this;
+
+    (Surface) (*this) = (Surface) rhs;
+    path = rhs.path;
+    return *this;
+}
+
 void IMGSurface::setImg(string p)
 {
     path = p;

@@ -14,6 +14,7 @@ class BMPSurface : public Surface
         BMPSurface(std::string, int, int, int, int);
         virtual ~BMPSurface();
         BMPSurface(const BMPSurface& other);
+        BMPSurface& operator=(const BMPSurface& rhs);
 
         void setBmp(std::string);
         void setTransparency(bool, Uint32);

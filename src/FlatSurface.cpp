@@ -31,6 +31,17 @@ FlatSurface::~FlatSurface()
 FlatSurface::FlatSurface(const FlatSurface& other) : Surface(other), height(other.height), width(other.width), color(other.color)
 {}
 
+FlatSurface& FlatSurface::operator=(const FlatSurface& rhs)
+{
+    if (this == &rhs) return *this;
+
+    (Surface) (*this) = (Surface) rhs;
+    color = rhs.color;
+    height = rhs.height;
+    width = rhs.width;
+    return *this;
+}
+
 void FlatSurface::setColor(int r, int g, int b)
 {
     color = SDL_MapRGB(surface->format, r, g, b);

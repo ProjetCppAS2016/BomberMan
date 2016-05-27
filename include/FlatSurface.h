@@ -13,6 +13,7 @@ class FlatSurface : public Surface
         FlatSurface(Uint32, int, int, int, int, int, int, int);
         ~FlatSurface();
         FlatSurface(const FlatSurface& other);
+        FlatSurface& operator=(const FlatSurface& rhs);
 
         int Getheight() { return height; }
         void Setheight(int val) { height = val; }

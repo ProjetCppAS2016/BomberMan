@@ -15,6 +15,7 @@ class IMGSurface : public Surface
         IMGSurface(std::string, int, int, int, int);
         virtual ~IMGSurface();
         IMGSurface(const IMGSurface& other);
+        IMGSurface& operator=(const IMGSurface& rhs);
 
         void setImg(std::string);
 
