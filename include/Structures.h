@@ -3,6 +3,8 @@
 #include <pthread.h>
 #include "Surface.h"
 
+#define GRID_SIZE 1
+
 enum moves { LEFT, RIGHT, UP, DOWN };
 enum content { WALL, D_WALL, NTHG };
 

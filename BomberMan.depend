@@ -241,7 +241,7 @@
 	"Surface.h"
 	"Structures.h"
 
-1464209438 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\screen.cpp
+1464209859 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\screen.cpp
 	"Screen.h"
 	<iostream>
 
@@ -294,7 +294,7 @@
 	<SDL/SDL_ttf.h>
 	"Surface.h"
 
-1464207329 c:\users\shiro\desktop\projettut[c++]\bomberman\include\structures.h
+1464359585 c:\users\shiro\desktop\projettut[c++]\bomberman\include\structures.h
 	<pthread.h>
 	"Surface.h"
 

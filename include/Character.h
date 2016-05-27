@@ -8,6 +8,7 @@ class Character
 {
     public:
         Character();
+        Character(int x, int y, int g_x, int g_y, TILE* tab[][GRID_SIZE]);
         ~Character();
         Character(const Character& other);
 
@@ -19,17 +20,14 @@ class Character
         void Setgrid_x(int val) { grid_x = val; }
         int Getgrid_y() { return grid_y; }
         void Setgrid_y(int val) { grid_y = val; }
-        TILE Getgrid() { return grid; }
-        void Setgrid(TILE val) { grid = val; }
+
+        void deplacer(moves direction);
 
     protected:
 
     private:
-        int x;
-        int y;
-        int grid_x;
-        int grid_y;
-        TILE grid;
+        int x, y, sizeX, sizeY, grid_x, grid_y;
+        TILE* grid[GRID_SIZE][GRID_SIZE];
 };
 
 #endif // CHARACTER_H
