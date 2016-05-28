@@ -201,9 +201,9 @@
 	"begin_code.h"
 	"close_code.h"
 
-1464102049 c:\users\shiro\desktop\projettut[c++]\bomberman\include\window.h
+1464431896 c:\users\shiro\desktop\projettut[c++]\bomberman\include\window.h
 	<SDL/SDL.h>
-	<SDL/SDL_thread.h>
+	<pthread.h>
 	<iostream>
 	<vector>
 	"Surface.h"
@@ -216,7 +216,7 @@
 	<SDL/SDL.h>
 	<iostream>
 
-1463772567 c:\users\shiro\desktop\projettut[c++]\bomberman\include\surface.h
+1464424827 c:\users\shiro\desktop\projettut[c++]\bomberman\include\surface.h
 	<SDL/SDL.h>
 	<iostream>
 
@@ -225,23 +225,24 @@
 	<iostream>
 	"Surface.h"
 
-1464359564 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\main.cpp
+1464432298 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\main.cpp
 	<iostream>
 	<SDL/SDL.h>
 	<SDL/SDL_ttf.h>
 	<vector>
 	"Window.h"
+	"Screen.h"
 	"IMGSurface.h"
 	"Text.h"
 	"Sprite.h"
 
-1464208796 c:\users\shiro\desktop\projettut[c++]\bomberman\include\screen.h
+1464432574 c:\users\shiro\desktop\projettut[c++]\bomberman\include\screen.h
 	<vector>
 	<pthread.h>
 	"Surface.h"
 	"Structures.h"
 
-1464209859 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\screen.cpp
+1464432574 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\screen.cpp
 	"Screen.h"
 	<iostream>
 
@@ -259,7 +260,7 @@
 	"Surface.h"
 	<SDL/SDL.h>
 
-1464102292 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\window.cpp
+1464431920 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\window.cpp
 	"Window.h"
 	"Surface.h"
 	"Screen.h"
@@ -286,10 +287,10 @@
 	"begin_code.h"
 	"close_code.h"
 
-1463412185 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\text.cpp
+1464432298 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\text.cpp
 	"Text.h"
 
-1464102833 c:\users\shiro\desktop\projettut[c++]\bomberman\include\text.h
+1464432298 c:\users\shiro\desktop\projettut[c++]\bomberman\include\text.h
 	<iostream>
 	<SDL/SDL_ttf.h>
 	"Surface.h"
@@ -298,11 +299,11 @@
 	<pthread.h>
 	"Surface.h"
 
-1464209097 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\sprite.cpp
+1464432348 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\sprite.cpp
 	"Sprite.h"
 	"Screen.h"
 
-1464366582 c:\users\shiro\desktop\projettut[c++]\bomberman\include\sprite.h
+1464432348 c:\users\shiro\desktop\projettut[c++]\bomberman\include\sprite.h
 	<vector>
 	<cstdarg>
 	<pthread.h>
@@ -391,10 +392,10 @@
 	<sys/types.h>
 	<stdint.h>
 
-1464370665 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\character.cpp
+1464420273 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\character.cpp
 	"Character.h"
 
-1464370494 c:\users\shiro\desktop\projettut[c++]\bomberman\include\character.h
+1464420071 c:\users\shiro\desktop\projettut[c++]\bomberman\include\character.h
 	"Structures.h"
 	"Sprite.h"
 

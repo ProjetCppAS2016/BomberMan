@@ -3,6 +3,16 @@
 
 using namespace std;
 
+void Sprite::m_init()
+{
+    m_surf = new(pthread_mutex_t);
+    m_nbr = new(pthread_mutex_t);
+    m_time = new(pthread_mutex_t);
+    pthread_mutex_init(m_surf, NULL);
+    pthread_mutex_init(m_nbr, NULL);
+    pthread_mutex_init(m_time, NULL);
+}
+
 Sprite::Sprite() : Surface(), tab_img(), nbr_img(0), switch_time(0), displayed(false)
 { m_init(); }
 Sprite::Sprite(int nbr, ...) : Surface(), tab_img(), nbr_img(nbr), switch_time(0), displayed(false)

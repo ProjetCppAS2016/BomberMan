@@ -35,6 +35,15 @@ Character::Character(const Character& other) : x(other.x), y(other.y),
     }
 }
 
+Character& Character::operator=(const Character& rhs)
+{
+    x = rhs.x;
+    y = rhs.y;
+    grid_x = rhs.grid_x;
+    grid_y = rhs.grid_y;
+    charSprite = rhs.charSprite;
+    return *this;
+}
 
 void Character::deplacer(moves direction)
 {

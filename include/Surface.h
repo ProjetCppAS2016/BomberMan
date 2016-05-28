@@ -12,8 +12,8 @@ class Surface
         Surface(SDL_Surface*, int, int);
         Surface(SDL_Surface*, int, int, int, int);
         virtual ~Surface();
-
         Surface(const Surface& other);
+
         Surface& operator=(const Surface&);
         SDL_Surface* getSurface() { return surface; }
         void setSurface(SDL_Surface* s) { surface = s; }

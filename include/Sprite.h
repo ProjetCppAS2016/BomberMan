@@ -41,15 +41,7 @@ class Sprite : public Surface
         pthread_mutex_t *m_time;
         pthread_t t_disp;
 
-        void m_init()
-        {
-            m_surf = new(pthread_mutex_t);
-            m_nbr = new(pthread_mutex_t);
-            m_time = new(pthread_mutex_t);
-            pthread_mutex_init(m_surf, NULL);
-            pthread_mutex_init(m_nbr, NULL);
-            pthread_mutex_init(m_time, NULL);
-        }
+        void m_init();
 };
 
 #endif // SPRITE_H

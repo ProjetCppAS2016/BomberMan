@@ -12,7 +12,7 @@ class Character
         Character(int x, int y, int g_x, int g_y, Sprite& spte, TILE* tab[][GRID_SIZE]);
         ~Character();
         Character(const Character& other);
-
+        Character& operator=(const Character& rhs);
 
         int Getx() { return x; }
         void Setx(int val) { x = val; }

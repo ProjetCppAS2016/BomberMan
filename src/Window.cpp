@@ -6,31 +6,31 @@
 
 using namespace std;
 
-Window::Window(int w, int h) : width (w), height(h), icon()
-{
-    init();
-}
-Window::Window(int w, int h, string t) : width (w), height(h), title(t), icon()
-{
-    init();
-    SDL_WM_SetCaption(title.c_str(), NULL);
-}
-Window::Window(int w, int h, string t, string i) : width (w), height(h), title(t), icon(i)
-{
-    init();
-    SDL_WM_SetCaption(title.c_str(), NULL);
-}
+Window* Window::instance = NULL;
 
+Window::Window(int w, int h, string t, string i) : width(w), height(h), title(t), icon(i)
+{
+    SDL_Surface *s;
+    if (icon.getSurface()!=NULL)
+        SDL_WM_SetIcon(icon.getSurface(), NULL);
+    s = SDL_SetVideoMode(width, height, 32, SDL_HWSURFACE | SDL_DOUBLEBUF);
+    if (s==NULL) {
+        fprintf(stderr, "Erreur dans l'initialisation de la fenêtre: %s", SDL_GetError());
+        exit(EXIT_FAILURE);
+    } else screen = new Screen(s);
+    SDL_WM_SetCaption(title.c_str(), NULL);
+}
 
 Window::~Window()
 {}
 
-Window::Window(const Window& other) : width (other.width),
-                                        height(other.height),
-                                        title(other.title),
-                                        icon(other.icon)
-{ screen = new Screen(*(other.screen)); }
-
+Window& Window::newInstance(int height, int width, string title, string icon)
+{
+    if (instance==NULL) {
+        instance = new Window(height, width, title, icon);
+        return *instance;
+    } else return *instance;
+}
 
 void Window::waitEvent(Uint8 e)
 {

@@ -8,6 +8,7 @@ SYNC* Screen::synchronization = new (SYNC);
 void Screen::lockSync()
 { pthread_mutex_lock(synchronization->m_sync);
 synchronization->locked=true; }
+
 void Screen::unlockSync()
 { pthread_mutex_unlock(synchronization->m_sync);
 synchronization->locked=false; }
@@ -26,8 +27,23 @@ void Screen::synchronise(int delay)
 }
 
 
+void Screen::t_init()
+{
+    scr_mutexes = new(MUTEX);
+    scr_mutexes->m_components = new (pthread_mutex_t);
+    scr_mutexes->m_screen = new (pthread_mutex_t);
+    synchronization->m_sync = new (pthread_mutex_t);
+    synchronization->c_sync = new (pthread_cond_t);
+    pthread_mutex_init(scr_mutexes->m_components, NULL);
+    pthread_mutex_init(scr_mutexes->m_screen, NULL);
+    pthread_mutex_init(synchronization->m_sync, NULL);
+    pthread_cond_init(synchronization->c_sync, NULL);
+    synchronization->cond_locked = synchronization->locked = false;
+}
+
 Screen::Screen() : Surface(), listComponents(NULL), auto_refresh(false), fps(40)
 { t_init(); }
+
 Screen::Screen(SDL_Surface *s) : Surface(s), listComponents(NULL), auto_refresh(false), fps(40)
 { t_init(); }
 
@@ -46,15 +62,45 @@ Screen::~Screen()
     delete(scr_mutexes);
 }
 
-Screen::Screen(const Screen& other) : Surface(other), listComponents(NULL), auto_refresh(false), fps(other.fps)
-{ t_init(); }
-
+Screen::Screen(const Surface& other) {}
+Screen& Screen::operator=(const Surface&) { return *this; }
 
 void Screen::setBgColor(int r, int g, int b)
 {
     bgColor = SDL_MapRGB(surface->format, r, g, b);
     SDL_FillRect(surface, NULL, bgColor);
     SDL_Flip(surface);
+}
+
+void Screen::blit(Surface& component)
+{
+    SDL_Rect position;
+    position.x = component.Getx();
+    position.y = component.Gety();
+    if (component.getDisp_h()!=-1)
+        position.h = component.getDisp_h();
+    if (component.getDisp_w()!=-1)
+        position.w = component.getDisp_w();
+
+    SDL_BlitSurface(component.getSurface(), NULL, surface, &position);
+}
+void Screen::delall(COMPONENT *t)
+{
+    if (t->next!=NULL) delall(t->next);
+
+    SDL_Surface *tmp_s = new SDL_Surface;
+    *tmp_s = *(t->object->getSurface());
+    SDL_FreeSurface(t->object->getSurface());
+    t->object->setSurface(tmp_s);
+    delete t;
+}
+void Screen::refscr(COMPONENT *t)
+{
+    if (t!=NULL) {
+        if (t->next!=NULL) refscr(t->next);
+
+        blit(*(t->object));
+    }
 }
 
 void Screen::addComponent(Surface& component)

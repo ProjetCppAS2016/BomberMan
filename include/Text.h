@@ -44,25 +44,7 @@ class Text : public Surface
         SDL_Color *default_color;
         int font_style;
 
-        void render_txt()
-        {
-            if (default_color==NULL) {
-                default_color = (SDL_Color*) malloc(3*sizeof(int));
-                default_color->r = default_color->g = default_color->b = 0;
-            }
-            TTF_SetFontStyle(default_font, font_style);
-            if (default_type=="solid")
-                surface = TTF_RenderText_Solid(default_font, value.c_str(), *default_color);
-            else if (default_type=="shaded") {
-                SDL_Color bg;
-                bg.r = 255 - default_color->r;
-                bg.g = 255 - default_color->g;
-                bg.b = 255 - default_color->b;
-                surface = TTF_RenderText_Shaded(default_font, value.c_str(), *default_color, bg);
-            }
-            else if (default_type=="blended")
-                surface = TTF_RenderText_Blended(default_font, value.c_str(), *default_color);
-        }
+        void render_txt();
 };
 
 #endif // TEXT_H
