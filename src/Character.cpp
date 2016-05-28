@@ -9,10 +9,15 @@ Character::Character() : x(0), y(0), grid_x(0), grid_y(0), charSprite()
 }
 
 Character::Character(int x, int y, int g_x, int g_y,
-                     Sprite& spte, TILE* tab[][GRID_SIZE]) : x(x), y(y),
-                                                             grid_x(g_x),
-                                                             grid_y(g_y),
-                                                             charSprite(spte)
+                     Sprite* spt_L, Sprite* spt_R,
+                     Sprite* spt_U,Sprite* spt_D,
+                     TILE* tab[][GRID_SIZE]) : x(x), y(y),
+                                               grid_x(g_x),
+                                               grid_y(g_y),
+                                               spriteLeft(spt_L),
+                                               spriteRight(spt_R),
+                                               spriteUp(spt_U),
+                                               spriteDown(spt_D)
 {
     for (int i=0; i<GRID_SIZE; i++) {
         for (int j=0; j<GRID_SIZE; j++)
@@ -27,7 +32,10 @@ Character::~Character()
 Character::Character(const Character& other) : x(other.x), y(other.y),
                                                grid_x(other.grid_x),
                                                grid_y(other.grid_y),
-                                               charSprite(other.charSprite)
+                                               spriteLeft(other.spt_L),
+                                               spriteRight(other.spt_R),
+                                               spriteUp(other.spt_U),
+                                               spriteDown(other.spt_D)
 {
     for (int i=0; i<GRID_SIZE; i++) {
         for (int j=0; j<GRID_SIZE; j++)
