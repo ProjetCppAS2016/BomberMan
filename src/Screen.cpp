@@ -103,45 +103,48 @@ void Screen::refscr(COMPONENT *t)
     }
 }
 
-void Screen::addComponent(Surface& component)
+void Screen::addComponent(Surface *component, bool refsh)
 {
     pthread_mutex_lock(scr_mutexes->m_components);
     pthread_mutex_lock(scr_mutexes->m_screen);
 
     if (listComponents==NULL) {
         listComponents = (COMPONENT*) malloc(sizeof(COMPONENT));
-        listComponents->object = &component;
+        listComponents->object = component;
         listComponents->next = NULL;
         listComponents->prev = NULL;
     } else {
         listComponents->prev = (COMPONENT*) malloc(sizeof(COMPONENT));
         listComponents->prev->next = listComponents;
         listComponents = listComponents->prev;
-        listComponents->object = &component;
+        listComponents->object = component;
         listComponents->prev = NULL;
     }
 
-    blit(component);
-    SDL_Flip(surface);
+    if (refsh) {
+        blit(*component);
+        SDL_Flip(surface);
+    }
 
     pthread_mutex_unlock(scr_mutexes->m_components);
     pthread_mutex_unlock(scr_mutexes->m_screen);
 }
 
-void Screen::addStaticComponent(Surface& component)
+void Screen::addStaticComponent(Surface *component, bool refsh)
 {
-    listStaticsComponents.push_back(&component);
-    blit(component);
-    SDL_Flip(surface);
+    listStaticsComponents.push_back(component);
+    if (refsh) {
+        blit(*component);
+        SDL_Flip(surface);
+    }
 }
-void Screen::deleteStaticComponent()
+void Screen::deleteStaticComponent(bool refsh)
 {
     listStaticsComponents.pop_back();
-    refresh();
-    SDL_Flip(surface);
+    if (refsh) refresh();
 }
 
-void Screen::deleteComponent(Surface* component)
+void Screen::deleteComponent(Surface *component)
 {
     pthread_mutex_lock(scr_mutexes->m_components);
 
@@ -182,6 +185,7 @@ void Screen::clearScreen()
     const int taille = listStaticsComponents.size();
     for (int i=0; i<taille; i++)
         blit(*(listStaticsComponents[i]));
+    SDL_Flip(surface);
 
     pthread_mutex_unlock(scr_mutexes->m_screen);
 }
@@ -195,21 +199,6 @@ void Screen::refresh()
         refscr(listComponents);
         SDL_Flip(surface);
     }
-
-    pthread_mutex_unlock(scr_mutexes->m_components);
-}
-
-void Screen::refreshAll()
-{
-    pthread_mutex_lock(scr_mutexes->m_components);
-
-    COMPONENT *tmp = listComponents;
-    clearScreen();
-    while (tmp!=NULL) {
-        blit(*(tmp->object));
-        tmp = tmp->next;
-    }
-    SDL_Flip(surface);
 
     pthread_mutex_unlock(scr_mutexes->m_components);
 }

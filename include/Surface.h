@@ -9,8 +9,8 @@ class Surface
     public:
         Surface();
         Surface(SDL_Surface*);
-        Surface(SDL_Surface*, int, int);
-        Surface(SDL_Surface*, int, int, int, int);
+        Surface(SDL_Surface*, int x, int y);
+        Surface(SDL_Surface*, int x, int y, int w, int h);
         virtual ~Surface();
         Surface(const Surface& other);
 

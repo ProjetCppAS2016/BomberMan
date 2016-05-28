@@ -9,9 +9,9 @@ class BMPSurface : public Surface
     public:
         BMPSurface();
         void initBMP();
-        BMPSurface(std::string);
-        BMPSurface(std::string, int, int);
-        BMPSurface(std::string, int, int, int, int);
+        BMPSurface(std::string path);
+        BMPSurface(std::string path, int x, int y);
+        BMPSurface(std::string path, int x, int y, int w, int h);
         virtual ~BMPSurface();
         BMPSurface(const BMPSurface& other);
         BMPSurface& operator=(const BMPSurface& rhs);

@@ -20,13 +20,12 @@ class Screen : public Surface
         int getFps() { return fps; }
         bool hasAuto_refresh() { return auto_refresh; }
 
-        virtual void addComponent(Surface& component);
-        virtual void addStaticComponent(Surface& component);
-        void deleteComponent(Surface* component);
-        void deleteStaticComponent();
+        void addComponent(Surface *component, bool refresh);
+        void addStaticComponent(Surface *component, bool refresh);
+        void deleteComponent(Surface *component);
+        void deleteStaticComponent(bool refresh);
         void deleteAllComponents();
         void refresh();
-        void refreshAll();
         void clearScreen();
         void activateA_R(bool value);
         static void synchronise(int delay);

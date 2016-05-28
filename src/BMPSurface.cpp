@@ -10,7 +10,7 @@ BMPSurface::BMPSurface() : Surface()
 void BMPSurface::initBMP()
 {
     if ((surface = SDL_LoadBMP(path.c_str()))==NULL)
-        fprintf(stderr, "Erreur dans le chargement de la BMP: %s", SDL_GetError());
+        fprintf(stderr, "Erreur dans le chargement de la BMP: %s\n", SDL_GetError());
 }
 
 BMPSurface::BMPSurface(string p) : Surface(), path(p)
@@ -19,7 +19,7 @@ BMPSurface::BMPSurface(string p) : Surface(), path(p)
 BMPSurface::BMPSurface(string p, int x, int y) : Surface(NULL, x, y), path(p)
 { initBMP(); }
 
-BMPSurface::BMPSurface(string p, int x, int y, int h, int w) : Surface(NULL, x, y, h, w), path(p)
+BMPSurface::BMPSurface(string p, int x, int y, int w, int h) : Surface(NULL, x, y, w, h), path(p)
 { initBMP(); }
 
 BMPSurface::~BMPSurface()
