@@ -23,6 +23,7 @@ class Sprite : public Surface
         int getSwitch_time() { return switch_time; }
         void setSwitch_time(int val);
         bool isDisplayed() { return displayed; }
+        virtual Surface* getImg(int i) { return tab_img[i]; }
 
         void displaySprite(bool value);
         void switchSurface(int index);

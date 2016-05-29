@@ -15,15 +15,20 @@ class Character
         Character& operator=(const Character& rhs);
 
         int Getx() { return x; }
-        void Setx(int val) { x = val; }
+        void Setx(int val);
         int Gety() { return y; }
-        void Sety(int val) { y = val; }
+        void Sety(int val);
         int Getgrid_x() { return grid_x; }
         void Setgrid_x(int val) { grid_x = val; }
         int Getgrid_y() { return grid_y; }
         void Setgrid_y(int val) { grid_y = val; }
+        Sprite* getSpriteLeft() { return spriteLeft; }
+        Sprite* getSpriteRight() { return spriteRight; }
+        Sprite* getSpriteUp() { return spriteUp; }
+        Sprite* getSpriteDown() { return spriteDown; }
 
         void deplacer(moves direction);
+        void useSprite(moves direction, int nbrImg);
 
     protected:
 

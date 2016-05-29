@@ -23,6 +23,9 @@ Character::Character(int x, int y, int g_x, int g_y,
         for (int j=0; j<GRID_SIZE; j++)
             grid[i][j] = tab[i][j];
     }
+    Setx(x);
+    Sety(y);
+    spriteUp->displaySprite(true);
 }
 
 Character::~Character()
@@ -55,40 +58,99 @@ Character& Character::operator=(const Character& rhs)
     return *this;
 }
 
+void Character::Setx(int val)
+{
+    x = val;
+    spriteLeft->Setx(x);
+    spriteRight->Setx(x);
+    spriteUp->Setx(x);
+    spriteDown->Setx(x);
+}
+void Character::Sety(int val)
+{
+    y = val;
+    spriteLeft->Sety(y);
+    spriteRight->Sety(y);
+    spriteUp->Sety(y);
+    spriteDown->Sety(y);
+}
+
+void Character::useSprite(moves direction, int nbrImg)
+{
+    spriteLeft->displaySprite(false);
+    spriteRight->displaySprite(false);
+    spriteUp->displaySprite(false);
+    spriteDown->displaySprite(false);
+    switch (direction)
+    {
+        case LEFT:
+            spriteLeft->Setnbr_img(nbrImg);
+            spriteLeft->displaySprite(true);
+            break;
+        case RIGHT:
+            spriteRight->Setnbr_img(nbrImg);
+            spriteRight->displaySprite(true);
+            break;
+        case UP:
+            spriteUp->Setnbr_img(nbrImg);
+            spriteUp->displaySprite(true);
+            break;
+        case DOWN:
+            spriteDown->Setnbr_img(nbrImg);
+            spriteDown->displaySprite(true);
+    }
+}
+
 void Character::deplacer(moves direction)
 {
     switch (direction)
     {
         case LEFT:
-            if (x-1 > grid[grid_x][grid_y]->xMin)
+            if (x-1 > grid[grid_x][grid_y]->xMin) {
                 x--;
-            else if (grid[grid_x-1][grid_y]->contain==NTHG) {
+                spriteLeft->Setx(x);
+                useSprite(LEFT, 6);
+            } else if (grid[grid_x-1][grid_y]->contain==NTHG) {
                 grid_x--;
                 x--;
+                spriteLeft->Setx(x);
+                useSprite(LEFT, 6);
             }
             break;
         case RIGHT:
-            if (x+sizeX+1 > grid[grid_x][grid_y]->xMax)
+            if (x+sizeX+1 > grid[grid_x][grid_y]->xMax) {
                 x++;
-            else if (grid[grid_x+1][grid_y]->contain==NTHG) {
+                spriteLeft->Setx(x);
+                useSprite(RIGHT, 6);
+            } else if (grid[grid_x+1][grid_y]->contain==NTHG) {
                 grid_x++;
                 x++;
+                spriteLeft->Setx(x);
+                useSprite(RIGHT, 6);
             }
             break;
         case UP:
-            if (y-1 > grid[grid_x][grid_y]->yMin)
+            if (y-1 > grid[grid_x][grid_y]->yMin) {
                 y--;
-            else if (grid[grid_x][grid_y-1]->contain==NTHG) {
+                spriteLeft->Setx(y);
+                useSprite(UP, 6);
+            } else if (grid[grid_x][grid_y-1]->contain==NTHG) {
                 grid_y--;
                 y--;
+                spriteLeft->Setx(y);
+                useSprite(UP, 6);
             }
             break;
         case DOWN:
-            if (y+sizeY+1 > grid[grid_x][grid_y]->yMax)
+            if (y+sizeY+1 > grid[grid_x][grid_y]->yMax) {
                 y++;
-            else if (grid[grid_x][grid_y+1]->contain==NTHG) {
+                spriteLeft->Setx(y);
+                useSprite(DOWN, 6);
+            } else if (grid[grid_x][grid_y+1]->contain==NTHG) {
                 grid_y++;
                 y++;
+                spriteLeft->Setx(y);
+                useSprite(DOWN, 6);
             }
     }
 }

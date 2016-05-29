@@ -8,6 +8,7 @@
 #include "IMGSurface.h"
 #include "Text.h"
 #include "Sprite.h"
+#include "Character.h"
 
 using namespace std;
 
@@ -70,20 +71,40 @@ int main(int argv, char** args)
     mainScreen.clearScreen();
 
     Sprite spLeft(1, 300, NULL), spRight(1, 300, NULL), spUp(1, 300, NULL), spDown(1, 300, NULL);
-    string pathLeft("textures\\left_"), pathRight("textures\\right_"), pathUp("textures\\up_"), pathDown("textures\\down_"), bmp(".bmp");
+    string L("textures\\left_"), pathLeft, R("textures\\right_"), pathRight,
+           U("textures\\up_"), pathUp, D("textures\\down_"), pathDown, bmp(".bmp");
+    BMPSurface *tmp;
     for (int i=1; i<7; i++) {
-        pathLeft = pathLeft + intToStr(i) + bmp;
-        pathRight = pathRight + intToStr(i) + bmp;
-        pathUp = pathUp + intToStr(i) + bmp;
-        pathDown = pathDown + intToStr(i) + bmp;
-        spLeft.addImg(new BMPSurface(pathLeft));
-        spRight.addImg(new BMPSurface(pathRight));
-        spUp.addImg(new BMPSurface(pathUp));
-        spDown.addImg(new BMPSurface(pathDown));
+        pathLeft = L + intToStr(i) + bmp;
+        pathRight = R + intToStr(i) + bmp;
+        pathUp = U + intToStr(i) + bmp;
+        pathDown = D + intToStr(i) + bmp;
+        tmp = new BMPSurface(pathLeft);
+        tmp->setTransparency(true, 0, 255, 0);
+        spLeft.addImg(tmp);
+        tmp = new BMPSurface(pathRight);
+        tmp->setTransparency(true, 0, 255, 0);
+        spRight.addImg(tmp);
+        tmp = new BMPSurface(pathUp);
+        tmp->setTransparency(true, 0, 255, 0);
+        spUp.addImg(tmp);
+        tmp = new BMPSurface(pathDown);
+        tmp->setTransparency(true, 0, 255, 0);
+        spDown.addImg(tmp);
     }
+    mainScreen.addComponent(&spLeft, false);
+    mainScreen.addComponent(&spRight, false);
+    mainScreen.addComponent(&spUp, false);
+    mainScreen.addComponent(&spDown, true);
+
+    mainScreen.activateA_R(true);
+
+    Character bomberman(33, 33, 1, 1, &spLeft, &spRight, &spUp, &spDown, grid);
+    bomberman.useSprite(RIGHT, 6);
 
     Window::waitEvent(SDL_QUIT);
 
+    mainScreen.activateA_R(false);
     Window::destroy();
     TTF_Quit();
     SDL_Quit();
