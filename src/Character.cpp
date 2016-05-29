@@ -1,6 +1,6 @@
 #include "Character.h"
 
-Character::Character() : x(0), y(0), grid_x(0), grid_y(0), sizeX(0), sizeY(0), spriteLeft(NULL), spriteRight(NULL), spriteUp(NULL), spriteDown(NULL)
+Character::Character() : x(0), y(0), grid_x(0), grid_y(0), sizeX(0), sizeY(0), spriteLeft(NULL), spriteRight(NULL), spriteUp(NULL), spriteDown(NULL), actualMove(STOP)
 {
     for (int i=0; i<GRID_SIZE; i++) {
         for (int j=0; j<GRID_SIZE; j++)
@@ -18,7 +18,8 @@ Character::Character(int g_x, int g_y, int sX, int sY,
                                                spriteLeft(spt_L),
                                                spriteRight(spt_R),
                                                spriteUp(spt_U),
-                                               spriteDown(spt_D)
+                                               spriteDown(spt_D),
+                                               actualMove(STOP)
 {
     for (int i=0; i<GRID_SIZE; i++) {
         for (int j=0; j<GRID_SIZE; j++)
@@ -40,7 +41,8 @@ Character::Character(const Character& other) : x(other.x), y(other.y),
                                                spriteLeft(other.spriteLeft),
                                                spriteRight(other.spriteRight),
                                                spriteUp(other.spriteUp),
-                                               spriteDown(other.spriteDown)
+                                               spriteDown(other.spriteDown),
+                                               actualMove(STOP)
 {
     for (int i=0; i<GRID_SIZE; i++) {
         for (int j=0; j<GRID_SIZE; j++)
@@ -82,43 +84,28 @@ void Character::Sety(int val)
 
 void Character::useSprite(moves direction, int nbrImg)
 {
+    if (spriteLeft->isDisplayed()) spriteLeft->displaySprite(false);
+    else if(spriteRight->isDisplayed()) spriteRight->displaySprite(false);
+    else if (spriteUp->isDisplayed()) spriteUp->displaySprite(false);
+    else if (spriteDown->isDisplayed()) spriteDown->displaySprite(false);
+
     switch (direction)
     {
         case LEFT:
-            if (!spriteLeft->isDisplayed()) {
-                if (spriteRight->isDisplayed()) spriteRight->displaySprite(false);
-                else if (spriteUp->isDisplayed()) spriteUp->displaySprite(false);
-                else if (spriteDown->isDisplayed()) spriteDown->displaySprite(false);
                 spriteLeft->Setnbr_img(nbrImg);
                 spriteLeft->displaySprite(true);
-            }
             break;
         case RIGHT:
-            if (!spriteRight->isDisplayed()) {
-                if (spriteLeft->isDisplayed()) spriteLeft->displaySprite(false);
-                else if (spriteUp->isDisplayed()) spriteUp->displaySprite(false);
-                else if (spriteDown->isDisplayed()) spriteDown->displaySprite(false);
                 spriteRight->Setnbr_img(nbrImg);
                 spriteRight->displaySprite(true);
-            }
             break;
         case UP:
-            if (!spriteUp->isDisplayed()) {
-                if (spriteLeft->isDisplayed()) spriteLeft->displaySprite(false);
-                else if (spriteRight->isDisplayed()) spriteRight->displaySprite(false);
-                else if (spriteDown->isDisplayed()) spriteDown->displaySprite(false);
                 spriteUp->Setnbr_img(nbrImg);
                 spriteUp->displaySprite(true);
-            }
             break;
         case DOWN:
-            if (!spriteDown->isDisplayed()) {
-                if (spriteLeft->isDisplayed()) spriteLeft->displaySprite(false);
-                else if (spriteRight->isDisplayed()) spriteRight->displaySprite(false);
-                else if (spriteUp->isDisplayed()) spriteUp->displaySprite(false);
                 spriteDown->Setnbr_img(nbrImg);
                 spriteDown->displaySprite(true);
-            }
     }
 }
 
@@ -127,40 +114,56 @@ void Character::moveTo(moves direction)
     switch (direction)
     {
         case LEFT:
-            if (x-1 > grid[grid_x][grid_y]->xMin)
-                Setx(x-1);
+            if (actualMove!=LEFT) {
+                useSprite(LEFT, 6);
+                actualMove = LEFT;
+            }
+            if (x-2 > grid[grid_x][grid_y]->xMin)
+                Setx(x-2);
             else if (grid[grid_x-1][grid_y]->contain==NTHG) {
                 if (x+sizeX <= grid[grid_x-1][grid_y]->xMax) grid_x--;
-                Setx(x-1);
+                Setx(x-2);
             }
-            useSprite(LEFT, 6);
             break;
         case RIGHT:
-            if (x+sizeX+1 < grid[grid_x][grid_y]->xMax)
-                Setx(x+1);
+            if (actualMove!=RIGHT) {
+                useSprite(RIGHT, 6);
+                actualMove = RIGHT;
+            }
+            if (x+sizeX+2 < grid[grid_x][grid_y]->xMax)
+                Setx(x+2);
             else if (grid[grid_x+1][grid_y]->contain==NTHG) {
                 if (x >= grid[grid_x+1][grid_y]->xMin) grid_x++;
-                Setx(x+1);
+                Setx(x+2);
             }
-            useSprite(RIGHT, 6);
             break;
         case UP:
-            if (y-1 > grid[grid_x][grid_y]->yMin)
-                Sety(y-1);
+            if (actualMove!=UP) {
+                useSprite(UP, 6);
+                actualMove = UP;
+            }
+            if (y-2 > grid[grid_x][grid_y]->yMin)
+                Sety(y-2);
             else if (grid[grid_x][grid_y-1]->contain==NTHG) {
                 if (y+sizeY <= grid[grid_x][grid_y-1]->yMax) grid_y--;
-                Sety(y-1);
+                Sety(y-2);
             }
-            useSprite(UP, 6);
             break;
         case DOWN:
-            if (y+sizeY+1 < grid[grid_x][grid_y]->yMax)
-                Sety(y+1);
+            if (actualMove!=DOWN) {
+                useSprite(DOWN, 6);
+                actualMove = DOWN;
+            }
+            if (y+sizeY+2 < grid[grid_x][grid_y]->yMax)
+                Sety(y+2);
             else if (grid[grid_x][grid_y+1]->contain==NTHG) {
                 if (y >= grid[grid_x][grid_y+1]->yMin) grid_y++;
-                Sety(y+1);
+                Sety(y+2);
             }
-            useSprite(DOWN, 6);
+            break;
+        case STOP:
+            if (actualMove!=STOP) useSprite(actualMove, 1);
+            actualMove = STOP;
     }
 }
 

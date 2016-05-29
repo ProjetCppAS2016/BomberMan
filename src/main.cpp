@@ -70,7 +70,7 @@ int main(int argv, char** args)
     }
     mainScreen.clearScreen();
 
-    Sprite spLeft(1, 120, NULL), spRight(1, 120, NULL), spUp(1, 120, NULL), spDown(1, 120, NULL);
+    Sprite spLeft(1, 90, NULL), spRight(1, 90, NULL), spUp(1, 90, NULL), spDown(1, 90, NULL);
     string L("textures\\left_"), pathLeft, R("textures\\right_"), pathRight,
            U("textures\\up_"), pathUp, D("textures\\down_"), pathDown, bmp(".bmp");
     BMPSurface *tmp;
@@ -100,22 +100,50 @@ int main(int argv, char** args)
     mainScreen.activateA_R(true);
 
     Character bomberman(1, 1, 32, 32, &spLeft, &spRight, &spUp, &spDown, grid);
-    bomberman.useSprite(RIGHT, 6);
-    for (int i=0; i<30; i++) {
-        bomberman.moveTo(DOWN);
-        mainScreen.synchronise(20);
-    }
-    for (int i=0; i<30; i++) {
-        bomberman.moveTo(RIGHT);
-        mainScreen.synchronise(20);
-    }
+    bomberman.useSprite(DOWN, 1);
 
-    Window::waitEvent(SDL_QUIT);
+    SDL_EnableKeyRepeat(5, 5);
+    SDL_Event event;
+    bool flag = true;
+
+    while (flag) {
+        SDL_WaitEvent(&event);
+
+        switch (event.type) {
+        case SDL_QUIT:
+                flag = false;
+            break;
+        case SDL_KEYDOWN:
+            switch (event.key.keysym.sym) {
+            case SDLK_LEFT:
+                    bomberman.moveTo(LEFT);
+                    mainScreen.synchronise(20);
+                break;
+            case SDLK_RIGHT:
+                    bomberman.moveTo(RIGHT);
+                    mainScreen.synchronise(20);
+                break;
+            case SDLK_UP:
+                    bomberman.moveTo(UP);
+                    mainScreen.synchronise(20);
+                break;
+            case SDLK_DOWN:
+                    bomberman.moveTo(DOWN);
+                    mainScreen.synchronise(20);
+                break;
+            default:
+                break;
+            }
+            break;
+        case SDL_KEYUP:
+            bomberman.moveTo(STOP);
+        }
+    }
 
     mainScreen.activateA_R(false);
     Window::destroy();
     TTF_Quit();
-
+    SDL_Quit();
     return 0;
 }
 

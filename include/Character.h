@@ -39,6 +39,7 @@ class Character
         Sprite *spriteUp;
         Sprite *spriteDown;
         TILE* grid[GRID_SIZE][GRID_SIZE];
+        moves actualMove;
 };
 
 #endif // CHARACTER_H

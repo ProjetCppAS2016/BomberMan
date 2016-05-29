@@ -5,7 +5,7 @@
 
 #define GRID_SIZE 11
 
-enum moves { LEFT, RIGHT, UP, DOWN };
+enum moves { LEFT, RIGHT, UP, DOWN, STOP };
 enum content { WALL, D_WALL, NTHG };
 
 typedef struct COMPONENT
