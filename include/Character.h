@@ -9,7 +9,7 @@ class Character
 {
     public:
         Character();
-        Character(int x, int y, int g_x, int g_y, Sprite* spt_L, Sprite* spt_R,Sprite* spt_U,Sprite* spt_D, TILE* tab[][GRID_SIZE]);
+        Character(int g_x, int g_y, int sizeX, int sizeY, Sprite* spt_L, Sprite* spt_R,Sprite* spt_U,Sprite* spt_D, TILE* tab[][GRID_SIZE]);
         ~Character();
         Character(const Character& other);
         Character& operator=(const Character& rhs);
@@ -33,7 +33,7 @@ class Character
     protected:
 
     private:
-        int x, y, sizeX, sizeY, grid_x, grid_y;
+        int x, y, grid_x, grid_y, sizeX, sizeY;
         Sprite *spriteLeft;
         Sprite *spriteRight;
         Sprite *spriteUp;

@@ -70,7 +70,7 @@ int main(int argv, char** args)
     }
     mainScreen.clearScreen();
 
-    Sprite spLeft(1, 300, NULL), spRight(1, 300, NULL), spUp(1, 300, NULL), spDown(1, 300, NULL);
+    Sprite spLeft(1, 120, NULL), spRight(1, 120, NULL), spUp(1, 120, NULL), spDown(1, 120, NULL);
     string L("textures\\left_"), pathLeft, R("textures\\right_"), pathRight,
            U("textures\\up_"), pathUp, D("textures\\down_"), pathDown, bmp(".bmp");
     BMPSurface *tmp;
@@ -99,15 +99,23 @@ int main(int argv, char** args)
 
     mainScreen.activateA_R(true);
 
-    Character bomberman(33, 33, 1, 1, &spLeft, &spRight, &spUp, &spDown, grid);
+    Character bomberman(1, 1, 32, 32, &spLeft, &spRight, &spUp, &spDown, grid);
     bomberman.useSprite(RIGHT, 6);
+    for (int i=0; i<30; i++) {
+        bomberman.moveTo(DOWN);
+        mainScreen.synchronise(20);
+    }
+    for (int i=0; i<30; i++) {
+        bomberman.moveTo(RIGHT);
+        mainScreen.synchronise(20);
+    }
 
     Window::waitEvent(SDL_QUIT);
 
     mainScreen.activateA_R(false);
     Window::destroy();
     TTF_Quit();
-    SDL_Quit();
+
     return 0;
 }
 
