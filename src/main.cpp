@@ -2,6 +2,7 @@
 #include <SDL/SDL.h>
 #include <SDL/SDL_ttf.h>
 #include <vector>
+#include <sstream>
 #include "Window.h"
 #include "Screen.h"
 #include "IMGSurface.h"
@@ -9,6 +10,13 @@
 #include "Sprite.h"
 
 using namespace std;
+
+string intToStr(int i)
+{
+    std::ostringstream stream;
+    stream << i;
+    return stream.str();
+}
 
 int main(int argv, char** args)
 {
@@ -61,7 +69,18 @@ int main(int argv, char** args)
     }
     mainScreen.clearScreen();
 
-
+    Sprite spLeft(1, 300, NULL), spRight(1, 300, NULL), spUp(1, 300, NULL), spDown(1, 300, NULL);
+    string pathLeft("textures\\left_"), pathRight("textures\\right_"), pathUp("textures\\up_"), pathDown("textures\\down_"), bmp(".bmp");
+    for (int i=1; i<7; i++) {
+        pathLeft = pathLeft + intToStr(i) + bmp;
+        pathRight = pathRight + intToStr(i) + bmp;
+        pathUp = pathUp + intToStr(i) + bmp;
+        pathDown = pathDown + intToStr(i) + bmp;
+        spLeft.addImg(new BMPSurface(pathLeft));
+        spRight.addImg(new BMPSurface(pathRight));
+        spUp.addImg(new BMPSurface(pathUp));
+        spDown.addImg(new BMPSurface(pathDown));
+    }
 
     Window::waitEvent(SDL_QUIT);
 

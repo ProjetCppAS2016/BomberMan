@@ -1,6 +1,6 @@
 #include "Character.h"
 
-Character::Character() : x(0), y(0), grid_x(0), grid_y(0), charSprite()
+Character::Character() : x(0), y(0), grid_x(0), grid_y(0), spriteLeft(NULL), spriteRight(NULL), spriteUp(NULL), spriteDown(NULL)
 {
     for (int i=0; i<GRID_SIZE; i++) {
         for (int j=0; j<GRID_SIZE; j++)
@@ -23,7 +23,6 @@ Character::Character(int x, int y, int g_x, int g_y,
         for (int j=0; j<GRID_SIZE; j++)
             grid[i][j] = tab[i][j];
     }
-    charSprite.displaySprite(true);
 }
 
 Character::~Character()
@@ -32,10 +31,10 @@ Character::~Character()
 Character::Character(const Character& other) : x(other.x), y(other.y),
                                                grid_x(other.grid_x),
                                                grid_y(other.grid_y),
-                                               spriteLeft(other.spt_L),
-                                               spriteRight(other.spt_R),
-                                               spriteUp(other.spt_U),
-                                               spriteDown(other.spt_D)
+                                               spriteLeft(other.spriteLeft),
+                                               spriteRight(other.spriteRight),
+                                               spriteUp(other.spriteUp),
+                                               spriteDown(other.spriteDown)
 {
     for (int i=0; i<GRID_SIZE; i++) {
         for (int j=0; j<GRID_SIZE; j++)
@@ -49,7 +48,10 @@ Character& Character::operator=(const Character& rhs)
     y = rhs.y;
     grid_x = rhs.grid_x;
     grid_y = rhs.grid_y;
-    charSprite = rhs.charSprite;
+    spriteLeft = rhs.spriteLeft;
+    spriteRight = rhs.spriteRight;
+    spriteUp = rhs.spriteUp;
+    spriteDown = rhs.spriteDown;
     return *this;
 }
 

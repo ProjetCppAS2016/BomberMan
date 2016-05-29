@@ -22,7 +22,6 @@ class Character
         void Setgrid_x(int val) { grid_x = val; }
         int Getgrid_y() { return grid_y; }
         void Setgrid_y(int val) { grid_y = val; }
-        Sprite& getSprite() { return charSprite; }
 
         void deplacer(moves direction);
 

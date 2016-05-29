@@ -15,26 +15,31 @@ void Sprite::m_init()
 
 Sprite::Sprite() : Surface(), tab_img(), nbr_img(0), switch_time(0), displayed(false)
 { m_init(); }
+
 Sprite::Sprite(int nbr, ...) : Surface(), tab_img(), nbr_img(nbr), switch_time(0), displayed(false)
 {
+    int i=-1;
+    Surface *tmp;
     va_list ap;
     va_start(ap, nbr);
-    for (int i=0; i<nbr; i++)
-        tab_img.push_back(va_arg(ap, Surface*));
+    while(((i++)<nbr) && ((tmp=va_arg(ap, Surface*))!=NULL))
+        tab_img.push_back(tmp);
     va_end(ap);
 
-    surface = tab_img[0]->getSurface();
+    if (tab_img.size()!=0) surface = tab_img[0]->getSurface();
     m_init();
 }
 Sprite::Sprite(int nbr, int time, ...) : Surface(), tab_img(), nbr_img(nbr), switch_time(time), displayed(false)
 {
+    int i=-1;
+    Surface *tmp;
     va_list ap;
     va_start(ap, time);
-    for (int i=0; i<nbr; i++)
-        tab_img.push_back(va_arg(ap, Surface*));
+    while(((i++)<nbr) && ((tmp=va_arg(ap, Surface*))!=NULL))
+        tab_img.push_back(tmp);
     va_end(ap);
 
-    surface = tab_img[0]->getSurface();
+    if (tab_img.size()!=0) surface = tab_img[0]->getSurface();
     m_init();
 }
 

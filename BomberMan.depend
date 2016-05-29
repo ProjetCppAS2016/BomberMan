@@ -225,11 +225,12 @@
 	<iostream>
 	"Surface.h"
 
-1464455613 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\main.cpp
+1464512539 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\main.cpp
 	<iostream>
 	<SDL/SDL.h>
 	<SDL/SDL_ttf.h>
 	<vector>
+	<sstream>
 	"Window.h"
 	"Screen.h"
 	"IMGSurface.h"
@@ -299,11 +300,11 @@
 	<pthread.h>
 	"Surface.h"
 
-1464432348 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\sprite.cpp
+1464512878 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\sprite.cpp
 	"Sprite.h"
 	"Screen.h"
 
-1464432348 c:\users\shiro\desktop\projettut[c++]\bomberman\include\sprite.h
+1464512065 c:\users\shiro\desktop\projettut[c++]\bomberman\include\sprite.h
 	<vector>
 	<cstdarg>
 	<pthread.h>
@@ -392,10 +393,10 @@
 	<sys/types.h>
 	<stdint.h>
 
-1464420273 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\character.cpp
+1464458269 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\character.cpp
 	"Character.h"
 
-1464420071 c:\users\shiro\desktop\projettut[c++]\bomberman\include\character.h
+1464458099 c:\users\shiro\desktop\projettut[c++]\bomberman\include\character.h
 	"Structures.h"
 	"Sprite.h"
 
