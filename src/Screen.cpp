@@ -185,7 +185,6 @@ void Screen::clearScreen()
     const int taille = listStaticsComponents.size();
     for (int i=0; i<taille; i++)
         blit(*(listStaticsComponents[i]));
-    SDL_Flip(surface);
 
     pthread_mutex_unlock(scr_mutexes->m_screen);
 }

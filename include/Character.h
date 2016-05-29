@@ -27,7 +27,7 @@ class Character
         Sprite* getSpriteUp() { return spriteUp; }
         Sprite* getSpriteDown() { return spriteDown; }
 
-        void deplacer(moves direction);
+        void moveTo(moves direction);
         void useSprite(moves direction, int nbrImg);
 
     protected:

@@ -26,7 +26,6 @@ Sprite::Sprite(int nbr, ...) : Surface(), tab_img(), nbr_img(nbr), switch_time(0
         tab_img.push_back(tmp);
     va_end(ap);
 
-    if (tab_img.size()!=0) surface = tab_img[0]->getSurface();
     m_init();
 }
 Sprite::Sprite(int nbr, int time, ...) : Surface(), tab_img(), nbr_img(nbr), switch_time(time), displayed(false)
@@ -39,7 +38,6 @@ Sprite::Sprite(int nbr, int time, ...) : Surface(), tab_img(), nbr_img(nbr), swi
         tab_img.push_back(tmp);
     va_end(ap);
 
-    if (tab_img.size()!=0) surface = tab_img[0]->getSurface();
     m_init();
 }
 
@@ -134,6 +132,7 @@ void Sprite::displaySprite(bool value)
     } else if (!value && displayed) {
         displayed = false;
         pthread_join(t_disp, NULL);
+        surface = NULL;
     }
 }
 

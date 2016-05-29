@@ -77,31 +77,47 @@ void Character::Sety(int val)
 
 void Character::useSprite(moves direction, int nbrImg)
 {
-    spriteLeft->displaySprite(false);
-    spriteRight->displaySprite(false);
-    spriteUp->displaySprite(false);
-    spriteDown->displaySprite(false);
     switch (direction)
     {
         case LEFT:
-            spriteLeft->Setnbr_img(nbrImg);
-            spriteLeft->displaySprite(true);
+            if (!spriteLeft->isDisplayed()) {
+                if (spriteRight->isDisplayed()) spriteRight->displaySprite(false);
+                else if (spriteUp->isDisplayed()) spriteUp->displaySprite(false);
+                else if (spriteDown->isDisplayed()) spriteDown->displaySprite(false);
+                spriteLeft->Setnbr_img(nbrImg);
+                spriteLeft->displaySprite(true);
+            }
             break;
         case RIGHT:
-            spriteRight->Setnbr_img(nbrImg);
-            spriteRight->displaySprite(true);
+            if (!spriteRight->isDisplayed()) {
+                if (spriteLeft->isDisplayed()) spriteLeft->displaySprite(false);
+                else if (spriteUp->isDisplayed()) spriteUp->displaySprite(false);
+                else if (spriteDown->isDisplayed()) spriteDown->displaySprite(false);
+                spriteRight->Setnbr_img(nbrImg);
+                spriteRight->displaySprite(true);
+            }
             break;
         case UP:
-            spriteUp->Setnbr_img(nbrImg);
-            spriteUp->displaySprite(true);
+            if (!spriteUp->isDisplayed()) {
+                if (spriteLeft->isDisplayed()) spriteLeft->displaySprite(false);
+                else if (spriteRight->isDisplayed()) spriteRight->displaySprite(false);
+                else if (spriteDown->isDisplayed()) spriteDown->displaySprite(false);
+                spriteUp->Setnbr_img(nbrImg);
+                spriteUp->displaySprite(true);
+            }
             break;
         case DOWN:
-            spriteDown->Setnbr_img(nbrImg);
-            spriteDown->displaySprite(true);
+            if (!spriteDown->isDisplayed()) {
+                if (spriteLeft->isDisplayed()) spriteLeft->displaySprite(false);
+                else if (spriteRight->isDisplayed()) spriteRight->displaySprite(false);
+                else if (spriteUp->isDisplayed()) spriteUp->displaySprite(false);
+                spriteDown->Setnbr_img(nbrImg);
+                spriteDown->displaySprite(true);
+            }
     }
 }
 
-void Character::deplacer(moves direction)
+void Character::moveTo(moves direction)
 {
     switch (direction)
     {
@@ -120,36 +136,36 @@ void Character::deplacer(moves direction)
         case RIGHT:
             if (x+sizeX+1 > grid[grid_x][grid_y]->xMax) {
                 x++;
-                spriteLeft->Setx(x);
+                spriteRight->Setx(x);
                 useSprite(RIGHT, 6);
             } else if (grid[grid_x+1][grid_y]->contain==NTHG) {
                 grid_x++;
                 x++;
-                spriteLeft->Setx(x);
+                spriteRight->Setx(x);
                 useSprite(RIGHT, 6);
             }
             break;
         case UP:
             if (y-1 > grid[grid_x][grid_y]->yMin) {
                 y--;
-                spriteLeft->Setx(y);
+                spriteUp->Setx(y);
                 useSprite(UP, 6);
             } else if (grid[grid_x][grid_y-1]->contain==NTHG) {
                 grid_y--;
                 y--;
-                spriteLeft->Setx(y);
+                spriteUp->Setx(y);
                 useSprite(UP, 6);
             }
             break;
         case DOWN:
             if (y+sizeY+1 > grid[grid_x][grid_y]->yMax) {
                 y++;
-                spriteLeft->Setx(y);
+                spriteDown->Setx(y);
                 useSprite(DOWN, 6);
             } else if (grid[grid_x][grid_y+1]->contain==NTHG) {
                 grid_y++;
                 y++;
-                spriteLeft->Setx(y);
+                spriteDown->Setx(y);
                 useSprite(DOWN, 6);
             }
     }
