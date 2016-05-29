@@ -130,7 +130,7 @@ void Character::moveTo(moves direction)
             if (x-1 > grid[grid_x][grid_y]->xMin)
                 Setx(x-1);
             else if (grid[grid_x-1][grid_y]->contain==NTHG) {
-                grid_x--;
+                if (x+sizeX <= grid[grid_x-1][grid_y]->xMax) grid_x--;
                 Setx(x-1);
             }
             useSprite(LEFT, 6);
@@ -139,7 +139,7 @@ void Character::moveTo(moves direction)
             if (x+sizeX+1 < grid[grid_x][grid_y]->xMax)
                 Setx(x+1);
             else if (grid[grid_x+1][grid_y]->contain==NTHG) {
-                grid_x++;
+                if (x >= grid[grid_x+1][grid_y]->xMin) grid_x++;
                 Setx(x+1);
             }
             useSprite(RIGHT, 6);
@@ -148,7 +148,7 @@ void Character::moveTo(moves direction)
             if (y-1 > grid[grid_x][grid_y]->yMin)
                 Sety(y-1);
             else if (grid[grid_x][grid_y-1]->contain==NTHG) {
-                grid_y--;
+                if (y+sizeY <= grid[grid_x][grid_y-1]->yMax) grid_y--;
                 Sety(y-1);
             }
             useSprite(UP, 6);
@@ -157,7 +157,7 @@ void Character::moveTo(moves direction)
             if (y+sizeY+1 < grid[grid_x][grid_y]->yMax)
                 Sety(y+1);
             else if (grid[grid_x][grid_y+1]->contain==NTHG) {
-                grid_y++;
+                if (y >= grid[grid_x][grid_y+1]->yMin) grid_y++;
                 Sety(y+1);
             }
             useSprite(DOWN, 6);
