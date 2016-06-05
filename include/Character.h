@@ -1,15 +1,14 @@
 #ifndef CHARACTER_H
 #define CHARACTER_H
 
-#include "Structures.h"
 #include "Sprite.h"
-
+#include "Structures.h"
 
 class Character
 {
     public:
         Character();
-        Character(int g_x, int g_y, int sizeX, int sizeY, Sprite* spt_L, Sprite* spt_R,Sprite* spt_U,Sprite* spt_D, TILE* tab[][GRID_SIZE]);
+        Character(int g_x, int g_y, HITBOX htb, Sprite* spt_L, Sprite* spt_R, Sprite* spt_U,Sprite* spt_D, TILE* tab[][GRID_SIZE]);
         ~Character();
         Character(const Character& other);
         Character& operator=(const Character& rhs);
@@ -29,11 +28,14 @@ class Character
 
         void moveTo(moves direction);
         void useSprite(moves direction, int nbrImg);
+        void increaseX(int amount);
+        void increaseY(int amount);
 
     protected:
 
     private:
-        int x, y, grid_x, grid_y, sizeX, sizeY;
+        int x, y, grid_x, grid_y;
+        HITBOX hitbox;
         Sprite *spriteLeft;
         Sprite *spriteRight;
         Sprite *spriteUp;

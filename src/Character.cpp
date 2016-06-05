@@ -1,6 +1,6 @@
 #include "Character.h"
 
-Character::Character() : x(0), y(0), grid_x(0), grid_y(0), sizeX(0), sizeY(0), spriteLeft(NULL), spriteRight(NULL), spriteUp(NULL), spriteDown(NULL), actualMove(STOP)
+Character::Character() : x(0), y(0), grid_x(0), grid_y(0), spriteLeft(NULL), spriteRight(NULL), spriteUp(NULL), spriteDown(NULL), actualMove(STOP)
 {
     for (int i=0; i<GRID_SIZE; i++) {
         for (int j=0; j<GRID_SIZE; j++)
@@ -8,13 +8,12 @@ Character::Character() : x(0), y(0), grid_x(0), grid_y(0), sizeX(0), sizeY(0), s
     }
 }
 
-Character::Character(int g_x, int g_y, int sX, int sY,
+Character::Character(int g_x, int g_y, HITBOX htb,
                      Sprite* spt_L, Sprite* spt_R,
                      Sprite* spt_U,Sprite* spt_D,
                      TILE* tab[][GRID_SIZE]) : grid_x(g_x),
                                                grid_y(g_y),
-                                               sizeX(sX),
-                                               sizeY(sY),
+                                               hitbox(htb),
                                                spriteLeft(spt_L),
                                                spriteRight(spt_R),
                                                spriteUp(spt_U),
@@ -27,6 +26,11 @@ Character::Character(int g_x, int g_y, int sX, int sY,
     }
     Setx(grid[grid_x][grid_y]->xMin);
     Sety(grid[grid_x][grid_y]->yMin);
+    hitbox.xMin += x;
+    hitbox.xMax += x;
+    hitbox.yMin += y;
+    hitbox.yMax += y;
+    grid[grid_x][grid_y]->player = (void*) this;
     spriteUp->displaySprite(true);
 }
 
@@ -36,8 +40,7 @@ Character::~Character()
 Character::Character(const Character& other) : x(other.x), y(other.y),
                                                grid_x(other.grid_x),
                                                grid_y(other.grid_y),
-                                               sizeX(other.sizeX),
-                                               sizeY(other.sizeY),
+                                               hitbox(other.hitbox),
                                                spriteLeft(other.spriteLeft),
                                                spriteRight(other.spriteRight),
                                                spriteUp(other.spriteUp),
@@ -48,14 +51,14 @@ Character::Character(const Character& other) : x(other.x), y(other.y),
         for (int j=0; j<GRID_SIZE; j++)
             grid[i][j] = other.grid[i][j];
     }
+    grid[grid_x][grid_y]->player = (void*) this;
 }
 
 Character& Character::operator=(const Character& rhs)
 {
     x = rhs.x;
     y = rhs.y;
-    sizeX = rhs.sizeX;
-    sizeY = rhs.sizeY;
+    hitbox = rhs.hitbox;
     grid_x = rhs.grid_x;
     grid_y = rhs.grid_y;
     spriteLeft = rhs.spriteLeft;
@@ -82,6 +85,20 @@ void Character::Sety(int val)
     spriteDown->Sety(y);
 }
 
+void Character::increaseX(int amount)
+{
+    Setx(x+amount);
+    hitbox.xMin += amount;
+    hitbox.xMax += amount;
+}
+
+void Character::increaseY(int amount)
+{
+    Sety(y+amount);
+    hitbox.yMin += amount;
+    hitbox.yMax += amount;
+}
+
 void Character::useSprite(moves direction, int nbrImg)
 {
     if (spriteLeft->isDisplayed()) spriteLeft->displaySprite(false);
@@ -106,6 +123,9 @@ void Character::useSprite(moves direction, int nbrImg)
         case DOWN:
                 spriteDown->Setnbr_img(nbrImg);
                 spriteDown->displaySprite(true);
+            break;
+        default:
+            break;
     }
 }
 
@@ -118,11 +138,14 @@ void Character::moveTo(moves direction)
                 useSprite(LEFT, 6);
                 actualMove = LEFT;
             }
-            if (x-2 > grid[grid_x][grid_y]->xMin)
-                Setx(x-2);
-            else if (grid[grid_x-1][grid_y]->contain==NTHG) {
-                if (x+sizeX <= grid[grid_x-1][grid_y]->xMax) grid_x--;
-                Setx(x-2);
+            if (hitbox.xMin > grid[grid_x][grid_y]->xMin) {
+                increaseX(-2);
+                if (hitbox.xMax <= grid[grid_x][grid_y]->xMax)
+                    grid[grid_x+1][grid_y]->player = NULL;
+            } else if (grid[grid_x-1][grid_y]->contain==NTHG) {
+                grid_x--;
+                grid[grid_x][grid_y]->player = (void*) this;
+                increaseX(-2);
             }
             break;
         case RIGHT:
@@ -130,11 +153,14 @@ void Character::moveTo(moves direction)
                 useSprite(RIGHT, 6);
                 actualMove = RIGHT;
             }
-            if (x+sizeX+2 < grid[grid_x][grid_y]->xMax)
-                Setx(x+2);
-            else if (grid[grid_x+1][grid_y]->contain==NTHG) {
-                if (x >= grid[grid_x+1][grid_y]->xMin) grid_x++;
-                Setx(x+2);
+            if (hitbox.xMax+2 < grid[grid_x][grid_y]->xMax) {
+                increaseX(2);
+                if (hitbox.xMin >= grid[grid_x][grid_y]->xMin)
+                    grid[grid_x-1][grid_y]->player = NULL;
+            } else if (grid[grid_x+1][grid_y]->contain==NTHG) {
+                grid_x++;
+                grid[grid_x][grid_y]->player = (void*) this;
+                increaseX(2);
             }
             break;
         case UP:
@@ -142,11 +168,14 @@ void Character::moveTo(moves direction)
                 useSprite(UP, 6);
                 actualMove = UP;
             }
-            if (y-2 > grid[grid_x][grid_y]->yMin)
-                Sety(y-2);
-            else if (grid[grid_x][grid_y-1]->contain==NTHG) {
-                if (y+sizeY <= grid[grid_x][grid_y-1]->yMax) grid_y--;
-                Sety(y-2);
+            if (hitbox.yMin-2 > grid[grid_x][grid_y]->yMin) {
+                increaseY(-2);
+                if (hitbox.yMax<=grid[grid_x][grid_y]->yMax)
+                    grid[grid_x][grid_y+1]->player = NULL;
+            } else if (grid[grid_x][grid_y-1]->contain==NTHG) {
+                grid_y--;
+                grid[grid_x][grid_y]->player = (void*) this;
+                increaseY(-2);
             }
             break;
         case DOWN:
@@ -154,11 +183,14 @@ void Character::moveTo(moves direction)
                 useSprite(DOWN, 6);
                 actualMove = DOWN;
             }
-            if (y+sizeY+2 < grid[grid_x][grid_y]->yMax)
-                Sety(y+2);
-            else if (grid[grid_x][grid_y+1]->contain==NTHG) {
-                if (y >= grid[grid_x][grid_y+1]->yMin) grid_y++;
-                Sety(y+2);
+            if (hitbox.yMax+2 < grid[grid_x][grid_y]->yMax) {
+                increaseY(2);
+                if (hitbox.yMin >= grid[grid_x][grid_y]->yMin)
+                    grid[grid_x][grid_y-1]->player = NULL;
+            } else if (grid[grid_x][grid_y+1]->contain==NTHG) {
+                grid_y++;
+                grid[grid_x][grid_y]->player = (void*) this;
+                increaseY(2);
             }
             break;
         case STOP:

@@ -40,6 +40,7 @@ int main(int argv, char** args)
             grid[x][y]->xMax = x*32+32;
             grid[x][y]->yMin = y*32;
             grid[x][y]->yMax = y*32+32;
+            grid[x][y]->player = NULL;
         }
     }
     for (int i=0; i<GRID_SIZE; i++) {
@@ -99,7 +100,8 @@ int main(int argv, char** args)
 
     mainScreen.activateA_R(true);
 
-    Character bomberman(1, 1, 32, 32, &spLeft, &spRight, &spUp, &spDown, grid);
+    HITBOX htb = {1, 17, 25, 31};
+    Character bomberman(1, 1, htb, &spLeft, &spRight, &spUp, &spDown, grid);
     bomberman.useSprite(DOWN, 1);
 
     SDL_EnableKeyRepeat(5, 5);

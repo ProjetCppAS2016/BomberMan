@@ -1,12 +1,13 @@
 #ifndef STRUCTURES_H_INCLUDED
 #define STRUCTURES_H_INCLUDED
+
 #include <pthread.h>
 #include "Surface.h"
 
 #define GRID_SIZE 11
 
 enum moves { LEFT, RIGHT, UP, DOWN, STOP };
-enum content { WALL, D_WALL, NTHG };
+enum content { WALL, BOX, NTHG };
 
 typedef struct COMPONENT
 {
@@ -32,6 +33,16 @@ typedef struct TILE
 {
     int xMin, xMax, yMin, yMax;
     content contain;
+    void *player;
 } TILE;
+
+typedef struct HITBOX
+{
+    int xMin;
+    int xMax;
+    int yMin;
+    int yMax;
+} HITBOX;
+
 
 #endif // STRUCTURES_H_INCLUDED
