@@ -45,6 +45,7 @@
 			<Add directory="lib" />
 		</Linker>
 		<Unit filename="include/BMPSurface.h" />
+		<Unit filename="include/Bomb.h" />
 		<Unit filename="include/Character.h" />
 		<Unit filename="include/FlatSurface.h" />
 		<Unit filename="include/IMGSurface.h" />
@@ -55,6 +56,7 @@
 		<Unit filename="include/Text.h" />
 		<Unit filename="include/Window.h" />
 		<Unit filename="src/BMPSurface.cpp" />
+		<Unit filename="src/Bomb.cpp" />
 		<Unit filename="src/Character.cpp" />
 		<Unit filename="src/FlatSurface.cpp" />
 		<Unit filename="src/IMGSurface.cpp" />

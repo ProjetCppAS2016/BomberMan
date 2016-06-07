@@ -3,6 +3,8 @@
 
 #include "Sprite.h"
 #include "Structures.h"
+#include "Screen.h"
+#include <SDL/SDL.h>
 
 class Character
 {
@@ -25,11 +27,16 @@ class Character
         Sprite* getSpriteRight() { return spriteRight; }
         Sprite* getSpriteUp() { return spriteUp; }
         Sprite* getSpriteDown() { return spriteDown; }
+        void CanDrop(bool val) { can_drop = val; }
+        bool isAlive() { return alive; }
+        void setAlive(bool val) { alive = val; }
 
         void moveTo(moves direction);
         void useSprite(moves direction, int nbrImg);
         void increaseX(int amount);
         void increaseY(int amount);
+        void dropBomb();
+        void kill();
 
     protected:
 
@@ -42,6 +49,8 @@ class Character
         Sprite *spriteDown;
         TILE* grid[GRID_SIZE][GRID_SIZE];
         moves actualMove;
+        bool can_drop;
+        bool alive;
 };
 
 #endif // CHARACTER_H

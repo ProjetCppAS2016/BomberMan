@@ -16,7 +16,7 @@ class Window
         int getHeight() { return height; }
         void setTitle(std::string t) { title = t; SDL_WM_SetCaption((char*) &title, NULL); }
         std::string getTitle() { return title; }
-        Screen& getScreen() { return *screen; }
+        Screen* getScreen() { return screen; }
 
         static Window& newInstance(int height, int width, std::string title, std::string icon);
         static Window& getInstance() { return *instance; }

@@ -9,6 +9,7 @@
 #include "Text.h"
 #include "Sprite.h"
 #include "Character.h"
+#include "Bomb.h"
 
 using namespace std;
 
@@ -28,7 +29,7 @@ int main(int argv, char** args)
     if (TTF_Init())
         fprintf(stderr, "Erreur dans l'initialisation de SDL_ttf: %s", TTF_GetError());
 
-    Screen& mainScreen = Window::newInstance(352, 352, "BomberMan", "icon.bmp").getScreen();
+    Screen& mainScreen = *(Window::newInstance(352, 352, "BomberMan", "icon.bmp").getScreen());
     mainScreen.setBgColor(20, 20, 20);
 
     TILE* grid[GRID_SIZE][GRID_SIZE];
@@ -53,7 +54,11 @@ int main(int argv, char** args)
         for (int y=2; y<GRID_SIZE-2; y+=2)
             grid[x][y]->contain = WALL;
 
+    for (int x=1; x<GRID_SIZE-1; x++)
+        grid[x][3]->contain = BOX;
+
     string imgPath;
+    BMPSurface *tmp = NULL;
     for (int x=0; x<GRID_SIZE; x++) {
         for (int y=0; y<GRID_SIZE; y++) {
             switch (grid[x][y]->contain)
@@ -65,8 +70,18 @@ int main(int argv, char** args)
             case NTHG:
                 imgPath = "textures\\floor.bmp";
                 break;
+
+            case BOX:
+                tmp = new BMPSurface("textures\\box.bmp", grid[x][y]->xMin, grid[x][y]->yMin);
             }
-            mainScreen.addStaticComponent(new BMPSurface(imgPath, grid[x][y]->xMin, grid[x][y]->yMin), false);
+            if (grid[x][y]->contain == BOX) {
+                mainScreen.addStaticComponent(new BMPSurface("textures\\floor.bmp", grid[x][y]->xMin, grid[x][y]->yMin), false);
+                mainScreen.addComponent(tmp, false);
+                grid[x][y]->box = tmp;
+            } else {
+                mainScreen.addStaticComponent(new BMPSurface(imgPath, grid[x][y]->xMin, grid[x][y]->yMin), false);
+                grid[x][y]->box = NULL;
+            }
         }
     }
     mainScreen.clearScreen();
@@ -74,7 +89,6 @@ int main(int argv, char** args)
     Sprite spLeft(1, 90, NULL), spRight(1, 90, NULL), spUp(1, 90, NULL), spDown(1, 90, NULL);
     string L("textures\\left_"), pathLeft, R("textures\\right_"), pathRight,
            U("textures\\up_"), pathUp, D("textures\\down_"), pathDown, bmp(".bmp");
-    BMPSurface *tmp;
     for (int i=1; i<7; i++) {
         pathLeft = L + intToStr(i) + bmp;
         pathRight = R + intToStr(i) + bmp;
@@ -102,6 +116,7 @@ int main(int argv, char** args)
 
     HITBOX htb = {1, 17, 25, 31};
     Character bomberman(1, 1, htb, &spLeft, &spRight, &spUp, &spDown, grid);
+    grid[1][1]->player = &bomberman;
     bomberman.useSprite(DOWN, 1);
 
     SDL_EnableKeyRepeat(5, 5);
@@ -111,34 +126,41 @@ int main(int argv, char** args)
     while (flag) {
         SDL_WaitEvent(&event);
 
-        switch (event.type) {
-        case SDL_QUIT:
-                flag = false;
-            break;
-        case SDL_KEYDOWN:
-            switch (event.key.keysym.sym) {
-            case SDLK_LEFT:
-                    bomberman.moveTo(LEFT);
-                    mainScreen.synchronise(20);
+        if (!bomberman.isAlive()) {
+            flag = false;
+            bomberman.kill();
+        } else {
+            switch (event.type) {
+            case SDL_QUIT:
+                    flag = false;
                 break;
-            case SDLK_RIGHT:
-                    bomberman.moveTo(RIGHT);
-                    mainScreen.synchronise(20);
+            case SDL_KEYDOWN:
+                switch (event.key.keysym.sym) {
+                case SDLK_LEFT:
+                        bomberman.moveTo(LEFT);
+                        mainScreen.synchronise(20);
+                    break;
+                case SDLK_RIGHT:
+                        bomberman.moveTo(RIGHT);
+                        mainScreen.synchronise(20);
+                    break;
+                case SDLK_UP:
+                        bomberman.moveTo(UP);
+                        mainScreen.synchronise(20);
+                    break;
+                case SDLK_DOWN:
+                        bomberman.moveTo(DOWN);
+                        mainScreen.synchronise(20);
+                    break;
+                case SDLK_SPACE:
+                        bomberman.dropBomb();
+                default:
+                    break;
+                }
                 break;
-            case SDLK_UP:
-                    bomberman.moveTo(UP);
-                    mainScreen.synchronise(20);
-                break;
-            case SDLK_DOWN:
-                    bomberman.moveTo(DOWN);
-                    mainScreen.synchronise(20);
-                break;
-            default:
-                break;
+            case SDL_KEYUP:
+                bomberman.moveTo(STOP);
             }
-            break;
-        case SDL_KEYUP:
-            bomberman.moveTo(STOP);
         }
     }
 

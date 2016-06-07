@@ -3,6 +3,7 @@
 
 #include <pthread.h>
 #include "Surface.h"
+#include "BMPSurface.h"
 
 #define GRID_SIZE 11
 
@@ -34,6 +35,7 @@ typedef struct TILE
     int xMin, xMax, yMin, yMax;
     content contain;
     void *player;
+    BMPSurface *box;
 } TILE;
 
 typedef struct HITBOX

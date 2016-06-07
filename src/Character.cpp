@@ -1,6 +1,11 @@
 #include "Character.h"
+#include "Bomb.h"
+#include "Window.h"
 
-Character::Character() : x(0), y(0), grid_x(0), grid_y(0), spriteLeft(NULL), spriteRight(NULL), spriteUp(NULL), spriteDown(NULL), actualMove(STOP)
+Character::Character() : x(0), y(0), grid_x(0), grid_y(0),
+                        spriteLeft(NULL), spriteRight(NULL),
+                        spriteUp(NULL), spriteDown(NULL),
+                        actualMove(STOP), can_drop(false), alive(false)
 {
     for (int i=0; i<GRID_SIZE; i++) {
         for (int j=0; j<GRID_SIZE; j++)
@@ -18,7 +23,9 @@ Character::Character(int g_x, int g_y, HITBOX htb,
                                                spriteRight(spt_R),
                                                spriteUp(spt_U),
                                                spriteDown(spt_D),
-                                               actualMove(STOP)
+                                               actualMove(STOP),
+                                               can_drop(true),
+                                               alive(true)
 {
     for (int i=0; i<GRID_SIZE; i++) {
         for (int j=0; j<GRID_SIZE; j++)
@@ -45,7 +52,9 @@ Character::Character(const Character& other) : x(other.x), y(other.y),
                                                spriteRight(other.spriteRight),
                                                spriteUp(other.spriteUp),
                                                spriteDown(other.spriteDown),
-                                               actualMove(STOP)
+                                               actualMove(STOP),
+                                               can_drop(other.can_drop),
+                                               alive(other.alive)
 {
     for (int i=0; i<GRID_SIZE; i++) {
         for (int j=0; j<GRID_SIZE; j++)
@@ -65,6 +74,8 @@ Character& Character::operator=(const Character& rhs)
     spriteRight = rhs.spriteRight;
     spriteUp = rhs.spriteUp;
     spriteDown = rhs.spriteDown;
+    can_drop = rhs.can_drop;
+    alive = rhs.alive;
     return *this;
 }
 
@@ -197,6 +208,27 @@ void Character::moveTo(moves direction)
             if (actualMove!=STOP) useSprite(actualMove, 1);
             actualMove = STOP;
     }
+}
+
+void Character::dropBomb()
+{
+    if (can_drop) {
+        new Bomb(grid_x, grid_y, 3, grid, this);
+        can_drop = false;
+    }
+}
+
+void Character::kill()
+{
+    alive = false;
+    spriteLeft->displaySprite(false);
+    spriteRight->displaySprite(false);
+    spriteUp->displaySprite(false);
+    spriteDown->displaySprite(false);
+    BMPSurface *dead = new BMPSurface("textures\\dead.bmp", x, y);
+    dead->setTransparency(true, 0, 255, 0);
+    Window::getInstance().getScreen()->addComponent(dead, false);
+    SDL_Delay(3000);
 }
 
 

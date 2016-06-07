@@ -201,7 +201,7 @@
 	"begin_code.h"
 	"close_code.h"
 
-1464431896 c:\users\shiro\desktop\projettut[c++]\bomberman\include\window.h
+1465303745 c:\users\shiro\desktop\projettut[c++]\bomberman\include\window.h
 	<SDL/SDL.h>
 	<pthread.h>
 	<iostream>
@@ -225,7 +225,7 @@
 	<iostream>
 	"Surface.h"
 
-1465039855 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\main.cpp
+1465304620 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\main.cpp
 	<iostream>
 	<SDL/SDL.h>
 	<SDL/SDL_ttf.h>
@@ -237,6 +237,7 @@
 	"Text.h"
 	"Sprite.h"
 	"Character.h"
+	"Bomb.h"
 
 1464452262 c:\users\shiro\desktop\projettut[c++]\bomberman\include\screen.h
 	<vector>
@@ -244,11 +245,11 @@
 	"Surface.h"
 	"Structures.h"
 
-1464528716 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\screen.cpp
+1465235449 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\screen.cpp
 	"Screen.h"
 	<iostream>
 
-1464104660 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\surface.cpp
+1465224899 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\surface.cpp
 	<SDL/SDL.h>
 	<iostream>
 	"Surface.h"
@@ -297,11 +298,12 @@
 	<SDL/SDL_ttf.h>
 	"Surface.h"
 
-1465037434 c:\users\shiro\desktop\projettut[c++]\bomberman\include\structures.h
+1465288492 c:\users\shiro\desktop\projettut[c++]\bomberman\include\structures.h
 	<pthread.h>
 	"Surface.h"
+	"BMPSurface.h"
 
-1464530377 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\sprite.cpp
+1465302470 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\sprite.cpp
 	"Sprite.h"
 	"Screen.h"
 
@@ -394,10 +396,27 @@
 	<sys/types.h>
 	<stdint.h>
 
-1465117967 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\character.cpp
+1465304696 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\character.cpp
 	"Character.h"
+	"Bomb.h"
+	"Window.h"
 
-1465038902 c:\users\shiro\desktop\projettut[c++]\bomberman\include\character.h
+1465303819 c:\users\shiro\desktop\projettut[c++]\bomberman\include\character.h
 	"Sprite.h"
 	"Structures.h"
+	"Screen.h"
+	<SDL/SDL.h>
+
+1465304118 c:\users\shiro\desktop\projettut[c++]\bomberman\include\bomb.h
+	"Sprite.h"
+	"BMPSurface.h"
+	"Structures.h"
+	"Character.h"
+	<pthread.h>
+	<SDL/SDL.h>
+
+1465304336 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\bomb.cpp
+	"Bomb.h"
+	"Character.h"
+	"Window.h"
 

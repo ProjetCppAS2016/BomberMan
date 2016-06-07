@@ -146,24 +146,25 @@ void Screen::deleteStaticComponent(bool refsh)
 
 void Screen::deleteComponent(Surface *component)
 {
-    pthread_mutex_lock(scr_mutexes->m_components);
+    if (component != NULL) {
+        pthread_mutex_lock(scr_mutexes->m_components);
 
-    COMPONENT *tmp = listComponents;
-    SDL_Surface *tmp_s = new SDL_Surface;
-    while (tmp!=NULL && (Surface*) &(tmp->object)!=component)
-        tmp = tmp->next;
-    if (tmp!=NULL) {
-        tmp->prev->next = tmp->next;
-        if (tmp->next != NULL)
-            tmp->next->prev = tmp->prev;
+        COMPONENT *tmp = listComponents;
+        while (tmp!=NULL && tmp->object!=component)
+            tmp = tmp->next;
+        if (tmp!=NULL) {
+            if (tmp->prev != NULL)
+                tmp->prev->next = tmp->next;
+            else listComponents = tmp->next;
+            if (tmp->next != NULL)
+                tmp->next->prev = tmp->prev;
 
-        *tmp_s = *(tmp->object->getSurface());
-        SDL_FreeSurface(tmp->object->getSurface());
-        tmp->object->setSurface(tmp_s);
-        delete tmp;
+            delete tmp->object;
+            delete tmp;
+        }
+
+        pthread_mutex_unlock(scr_mutexes->m_components);
     }
-
-    pthread_mutex_unlock(scr_mutexes->m_components);
 }
 
 void Screen::deleteAllComponents()
