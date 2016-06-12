@@ -6,7 +6,7 @@ Explosion::Explosion() : pos_x(0), pos_y(0), direction(STOP), canPropagate(false
 {}
 
 Explosion::Explosion(int x, int y, moves dir, Grid *gameGd) : pos_x(x), pos_y(y), direction(dir),
-                                                              gameGrid(gameGd), canPropagate(false),
+                                                              canPropagate(false), gameGrid(gameGd),
                                                               texture(NULL), next_explosion(NULL)
 {
     string path;
@@ -36,7 +36,7 @@ Explosion::Explosion(int x, int y, moves dir, Grid *gameGd) : pos_x(x), pos_y(y)
         HITBOX htbx = gameGrid->getTile(pos_x,pos_y)->getHitbox();
         texture = new BMPSurface(path, htbx.xMin, htbx.yMin);
         texture->setTransparency(true, 0, 255, 0);
-        Window::getScreen().addComponent(texture);
+        Window::getScreen().addComponent(texture, false);
     }
 }
 
@@ -72,14 +72,14 @@ Explosion::Explosion(const Explosion& other): pos_x(other.pos_x), pos_y(other.po
         path = "textures\\explosion_center.bmp";
     }
     texture = new BMPSurface(path, htbx.xMin, htbx.yMin);
-    Window::getScreen().addComponent(texture);
+    Window::getScreen().addComponent(texture, false);
 }
 
 void Explosion::propagate()
 {
     if (canPropagate) {
         if (direction == STOP) {
-            Explosion *e_left, *e_right, *e_up, e_down;
+            Explosion *e_left, *e_right, *e_up, *e_down;
             e_left = new Explosion(pos_x-1, pos_y, LEFT, gameGrid);
             e_right = new Explosion(pos_x+1, pos_y, RIGHT, gameGrid);
             e_up = new Explosion(pos_x, pos_y-1, UP, gameGrid);

@@ -201,7 +201,7 @@
 	"begin_code.h"
 	"close_code.h"
 
-1465303745 c:\users\shiro\desktop\projettut[c++]\bomberman\include\window.h
+1465763781 c:\users\shiro\desktop\projettut[c++]\bomberman\include\window.h
 	<SDL/SDL.h>
 	<pthread.h>
 	<iostream>
@@ -225,19 +225,12 @@
 	<iostream>
 	"Surface.h"
 
-1465548445 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\main.cpp
-	<iostream>
+1465772014 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\main.cpp
 	<SDL/SDL.h>
-	<SDL/SDL_ttf.h>
-	<vector>
-	<sstream>
 	"Window.h"
 	"Screen.h"
-	"IMGSurface.h"
-	"Text.h"
-	"Sprite.h"
 	"Character.h"
-	"Bomb.h"
+	"Grid.h"
 
 1464452262 c:\users\shiro\desktop\projettut[c++]\bomberman\include\screen.h
 	<vector>
@@ -298,12 +291,12 @@
 	<SDL/SDL_ttf.h>
 	"Surface.h"
 
-1465288492 c:\users\shiro\desktop\projettut[c++]\bomberman\include\structures.h
+1465741658 c:\users\shiro\desktop\projettut[c++]\bomberman\include\structures.h
 	<pthread.h>
 	"Surface.h"
 	"BMPSurface.h"
 
-1465302470 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\sprite.cpp
+1465750108 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\sprite.cpp
 	"Sprite.h"
 	"Screen.h"
 
@@ -396,27 +389,57 @@
 	<sys/types.h>
 	<stdint.h>
 
-1465304696 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\character.cpp
+1465770533 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\character.cpp
 	"Character.h"
+
+1465770518 c:\users\shiro\desktop\projettut[c++]\bomberman\include\character.h
+	"Sprite.h"
+	"Structures.h"
+	"Window.h"
+	<sstream>
+	<iostream>
+
+1465765480 c:\users\shiro\desktop\projettut[c++]\bomberman\include\bomb.h
+	"Sprite.h"
+	"Structures.h"
+	"Explosion.h"
+	"Grid.h"
+	<pthread.h>
+
+1465765738 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\bomb.cpp
 	"Bomb.h"
 	"Window.h"
 
-1465303819 c:\users\shiro\desktop\projettut[c++]\bomberman\include\character.h
-	"Sprite.h"
-	"Structures.h"
-	"Screen.h"
-	<SDL/SDL.h>
-
-1465551800 c:\users\shiro\desktop\projettut[c++]\bomberman\include\bomb.h
-	"Sprite.h"
+1465747041 c:\users\shiro\desktop\projettut[c++]\bomberman\include\explosion.h
+	"Grid.h"
 	"BMPSurface.h"
 	"Structures.h"
-	"Character.h"
-	<pthread.h>
 	<SDL/SDL.h>
 
-1465304336 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\bomb.cpp
-	"Bomb.h"
+1465771493 c:\users\shiro\desktop\projettut[c++]\bomberman\include\grid.h
+	"Structures.h"
 	"Character.h"
+	"Tile.h"
+
+1465771087 c:\users\shiro\desktop\projettut[c++]\bomberman\include\tile.h
+	"Structures.h"
+	"Character.h"
+	"BMPSurface.h"
+
+1465769952 c:\users\shiro\desktop\projettut[c++]\bomberman\include\bomberman.h
+	"Character.h"
+	"Screen.h"
+	"Grid.h"
+	"Bomb.h"
 	"Window.h"
+	<SDL/SDL.h>
+
+1465770300 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\bomberman.cpp
+	"Bomberman.h"
+
+1465770609 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\explosion.cpp
+	"Explosion.h"
+
+1465771822 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\grid.cpp
+	"Grid.h"
 

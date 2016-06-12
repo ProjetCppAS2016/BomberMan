@@ -1,6 +1,6 @@
 #include "Grid.h"
 
-Grid::Grid() : bmbX(1), bmbY(1)
+Grid::Grid()
 {
     content c;
     for (int x=0; x<GRID_SIZE; x++) {
@@ -9,20 +9,19 @@ Grid::Grid() : bmbX(1), bmbY(1)
                 c = WALL;
             else if (x==3) c = BOX;
             else c = NTHG;
-            tileTab[x][y]({x*32, x*32+32, y*32, y*32+32}, c);
+            tileTab[x][y] = new Tile({x*32, x*32+32, y*32, y*32+32}, c);
         }
     }
-    Window::getScreen().clearScreen();
 }
 
 Grid::~Grid()
 {}
 
-Grid::Grid(const Grid& other) : bmbX(other.bmbX), bmbY(other.bmbY)
+Grid::Grid(const Grid& other)
 {
     for (int i=0; i<GRID_SIZE; i++) {
         for (int j=0; j<GRID_SIZE; j++)
-            tileTab[i][j](other.tileTab[i][j]);
+            tileTab[i][j] = new Tile(*(other.tileTab[i][j]));
     }
 }
 
@@ -39,54 +38,82 @@ Grid& Grid::operator=(const Grid& rhs)
     return *this;
 }
 
-bool Grid::collision(Character* bomberman)
+bool Grid::collision(Character *bomberman)
 {
     HITBOX htb = bomberman->getHitbox();
     switch (bomberman->getMove())
     {
     case LEFT:
-        if (tileTab[bmbX+1][bmbY].inTile(htb) && tileTab[bmbX+1][bmbY].getContent()!=NTHG) {
-            if (tileTab[bmbX+1][bmbY].getContent()==EXPLOSION) bomberman->kill();
+        if (tileTab[bmbX-1][bmbY]->inTile_left(htb) && tileTab[bmbX-1][bmbY]->getContent()!=NTHG) {
+            if (tileTab[bmbX-1][bmbY]->getContent()==EXPLOSION) bomberman->kill();
             return true;
         }
-        else if (tileTab[bmbX+1][bmbY-1].inTile(htb) && tileTab[bmbX+1][bmbY-1].getContent()!=NTHG)
+        else if (tileTab[bmbX-1][bmbY-1]->inTile_left(htb) && tileTab[bmbX-1][bmbY-1]->getContent()!=NTHG)
             return true;
-        else if (tileTab[bmbX+1][bmbY+1].inTile(htb) && tileTab[bmbX+1][bmbY+1].getContent()!=NTHG)
+        else if (tileTab[bmbX-1][bmbY+1]->inTile_left(htb) && tileTab[bmbX-1][bmbY+1]->getContent()!=NTHG)
             return true;
-        else return false;
+        else {
+            if (!tileTab[bmbX][bmbY]->inTile_right(htb)) {
+                tileTab[bmbX][bmbY]->setBomber(NULL);
+                tileTab[bmbX-1][bmbY]->setBomber(bomberman);
+                bmbX--;
+            }
+            return false;
+        }
         break;
     case RIGHT:
-        if (tileTab[bmbX-1][bmbY].inTile(htb) && tileTab[bmbX-1][bmbY].getContent()!=NTHG) {
-            if (tileTab[bmbX-1][bmbY].getContent()==EXPLOSION) bomberman->kill();
+        if (tileTab[bmbX+1][bmbY]->inTile_right(htb) && tileTab[bmbX+1][bmbY]->getContent()!=NTHG) {
+            if (tileTab[bmbX+1][bmbY]->getContent()==EXPLOSION) bomberman->kill();
             return true;
         }
-        else if (tileTab[bmbX-1][bmbY-1].inTile(htb) && tileTab[bmbX-1][bmbY-1].getContent()!=NTHG)
+        else if (tileTab[bmbX+1][bmbY-1]->inTile_right(htb) && tileTab[bmbX+1][bmbY-1]->getContent()!=NTHG)
             return true;
-        else if (tileTab[bmbX-1][bmbY+1].inTile(htb) && tileTab[bmbX-1][bmbY+1].getContent()!=NTHG)
+        else if (tileTab[bmbX+1][bmbY+1]->inTile_right(htb) && tileTab[bmbX+1][bmbY+1]->getContent()!=NTHG)
             return true;
-        else return false;
+        else {
+            if (!tileTab[bmbX][bmbY]->inTile_left(htb)) {
+                tileTab[bmbX][bmbY]->setBomber(NULL);
+                tileTab[bmbX+1][bmbY]->setBomber(bomberman);
+                bmbX++;
+            }
+            return false;
+        }
         break;
-    case Up:
-        if (tileTab[bmbX][bmbY-1].inTile(htb) && tileTab[bmbX][bmbY-1].getContent()!=NTHG) {
-            if (tileTab[bmbX][bmbY-1].getContent()==EXPLOSION) bomberman->kill();
+    case UP:
+        if (tileTab[bmbX][bmbY-1]->inTile_top(htb) && tileTab[bmbX][bmbY-1]->getContent()!=NTHG) {
+            if (tileTab[bmbX][bmbY-1]->getContent()==EXPLOSION) bomberman->kill();
             return true;
         }
-        else if (tileTab[bmbX-1][bmbY-1].inTile(htb) && tileTab[bmbX-1][bmbY-1].getContent()!=NTHG)
+        else if (tileTab[bmbX-1][bmbY-1]->inTile_top(htb) && tileTab[bmbX-1][bmbY-1]->getContent()!=NTHG)
             return true;
-        else if (tileTab[bmbX+1][bmbY-1].inTile(htb) && tileTab[bmbX+1][bmbY-1].getContent()!=NTHG)
+        else if (tileTab[bmbX+1][bmbY-1]->inTile_top(htb) && tileTab[bmbX+1][bmbY-1]->getContent()!=NTHG)
             return true;
-        else return false;
+        else {
+            if (!tileTab[bmbX][bmbY]->inTile_bottom(htb)) {
+                tileTab[bmbX][bmbY]->setBomber(NULL);
+                tileTab[bmbX][bmbY-1]->setBomber(bomberman);
+                bmbY--;
+            }
+            return false;
+        }
         break;
     case DOWN:
-        if (tileTab[bmbX][bmbY+1].inTile(htb) && tileTab[bmbX][bmbY+1].getContent()!=NTHG) {
-            if (tileTab[bmbX][bmbY+1].getContent()==EXPLOSION) bomberman->kill();
+        if (tileTab[bmbX][bmbY+1]->inTile_bottom(htb) && tileTab[bmbX][bmbY+1]->getContent()!=NTHG) {
+            if (tileTab[bmbX][bmbY+1]->getContent()==EXPLOSION) bomberman->kill();
             return true;
         }
-        else if (tileTab[bmbX-1][bmbY+1].inTile(htb) && tileTab[bmbX-1][bmbY+1].getContent()!=NTHG)
+        else if (tileTab[bmbX-1][bmbY+1]->inTile_bottom(htb) && tileTab[bmbX-1][bmbY+1]->getContent()!=NTHG)
             return true;
-        else if (tileTab[bmbX+1][bmbY+1].inTile(htb) && tileTab[bmbX+1][bmbY+1].getContent()!=NTHG)
+        else if (tileTab[bmbX+1][bmbY+1]->inTile_bottom(htb) && tileTab[bmbX+1][bmbY+1]->getContent()!=NTHG)
             return true;
-        else return false;
+        else {
+            if (!tileTab[bmbX][bmbY]->inTile_top(htb)) {
+                tileTab[bmbX][bmbY]->setBomber(NULL);
+                tileTab[bmbX][bmbY+1]->setBomber(bomberman);
+                bmbY++;
+            }
+            return false;
+        }
         break;
     default:
         return false;
@@ -96,21 +123,18 @@ bool Grid::collision(Character* bomberman)
 
 bool Grid::collision_exp(int x, int y)
 {
-    Tile test;
-    test
-    switch (tileTab[x][y].getContent())
+    switch (tileTab[x][y]->getContent())
     {
     case WALL:
         return true;
         break;
     case BOX:
-        tileTab[x][y].destroy_Box();
-        tileTab[x][y].setContent(EXPLOSION);
+        tileTab[x][y]->destroy_Box();
+        tileTab[x][y]->setContent(EXPLOSION);
         return false;
         break;
     case NTHG:
-        Character *bomber = tileTab[x][y].getBomber();
-        if (bomber!=NULL) bomber->kill();
+        tileTab[x][y]->kill_bomber();
         return false;
         break;
     default:

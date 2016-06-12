@@ -2,10 +2,10 @@
 
 using namespace std;
 
-Tile::Tile() : hitbox({0,0,0,0}), contain(NTHG), texture(NULL); box(NULL), bomberman(NULL)
+Tile::Tile() : hitbox({0,0,0,0}), contain(NTHG), texture(NULL), box(NULL), bomber(NULL)
 {}
 
-Tile::Tile(HITBOX htbx, content ctnt) : hitbox(htbx), contain(ctnt), box(NULL), bomberman(NULL)
+Tile::Tile(HITBOX htbx, content ctnt) : hitbox(htbx), contain(ctnt), box(NULL), bomber(NULL)
 {
     if (contain == WALL)
         texture = new BMPSurface("textures\\wall.bmp", hitbox.xMin, hitbox.yMin);
@@ -13,27 +13,27 @@ Tile::Tile(HITBOX htbx, content ctnt) : hitbox(htbx), contain(ctnt), box(NULL), 
         texture = new BMPSurface("textures\\floor.bmp", hitbox.xMin, hitbox.yMin);
         if (contain == BOX) {
             box = new BMPSurface("textures\\box.bmp", hitbox.xMin, hitbox.yMin);
-            Window::getScreen().addComponent(box);
+            Window::getScreen().addComponent(box, false);
         }
     }
-    Window::getScreen().addStaticComponent(&texture);
+    Window::getScreen().addStaticComponent(texture, false);
 }
 
 Tile::~Tile()
 { Window::getScreen().deleteComponent(box); }
 
-Tile::Tile(const Tile& other) : hitbox(other.htbx), contain(other.ctnt), texture(other.texture), box(other.box), bomberman(other.bomberman)
+Tile::Tile(const Tile& other) : hitbox(other.hitbox), contain(other.contain), texture(other.texture), box(other.box), bomber(other.bomber)
 {}
 
 Tile& Tile::operator=(const Tile& rhs)
 {
     if (this == &rhs) return *this; // handle self assignment
 
-    hitbox = rhs.htbx;
-    contain = rhs.ctnt;
+    hitbox = rhs.hitbox;
+    contain = rhs.contain;
     texture = rhs.texture;
     box = rhs.box;
-    bomberman = rhs.bomberman;
+    bomber = rhs.bomber;
     return *this;
 }
 
@@ -75,9 +75,12 @@ bool Tile::inTile_right(HITBOX bomber_htbx)
 
 void Tile::destroy_Box()
 {
-    Window::getScreen()->deleteComponent(box);
+    Window::getScreen().deleteComponent(box);
     contain = NTHG;
 }
+
+void Tile::kill_bomber()
+{ if (bomber!=NULL) bomber->kill(); }
 
 
 

@@ -1,5 +1,4 @@
 #include "Bomb.h"
-#include "Character.h"
 #include "Window.h"
 
 using namespace std;
@@ -14,11 +13,10 @@ void* wait_explode(void* arg)
     return NULL;
 }
 
-Bomb::Bomb() : grid_x(0), grid_y(0), gameGrid(NULL), bomb_spt(NULL), thrower(NULL)
+Bomb::Bomb() : grid_x(0), grid_y(0), gameGrid(NULL), bomb_spt(NULL)
 {}
 
-Bomb::Bomb(int grid_x, int grid_y, Grid *gameGrid, Character *thrower): grid_x(grid_x), grid_y(grid_y),
-                                                                        gameGrid(gameGrid), thrower(thrower)
+Bomb::Bomb(int grid_x, int grid_y, Grid *gameGrid): grid_x(grid_x), grid_y(grid_y), gameGrid(gameGrid)
 {
     BMPSurface *tmp1 = new BMPSurface("textures\\bomb_1.bmp");
     BMPSurface *tmp2 = new BMPSurface("textures\\bomb_2.bmp");
@@ -42,14 +40,13 @@ Bomb::Bomb(int grid_x, int grid_y, Grid *gameGrid, Character *thrower): grid_x(g
 Bomb::~Bomb()
 { Window::getScreen().deleteComponent(bomb_spt); }
 
-Bomb::Bomb(const Bomb& other) : grid_x(other.grid_x), grid_y(other.grid_y), gameGrid(other.gameGrid), thrower(other.thrower)
+Bomb::Bomb(const Bomb& other) : grid_x(other.grid_x), grid_y(other.grid_y), gameGrid(other.gameGrid)
 {}
 
 Bomb& Bomb::operator=(const Bomb& rhs)
 {
     grid_x = rhs.grid_x;
     grid_y = rhs.grid_y;
-    thrower = rhs.thrower;
     gameGrid = rhs.gameGrid;
     return *this;
 }
@@ -59,7 +56,6 @@ void Bomb::explode()
     Explosion *explosion_center = new Explosion(grid_x, grid_y, STOP, gameGrid);
     explosion_center->propagate();
     delete explosion_center;
-    thrower->CanDrop(true);
 }
 
 

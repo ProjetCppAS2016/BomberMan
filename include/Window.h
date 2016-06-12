@@ -16,14 +16,14 @@ class Window
         int getHeight() { return height; }
         void setTitle(std::string t) { title = t; SDL_WM_SetCaption((char*) &title, NULL); }
         std::string getTitle() { return title; }
-        Screen* getScreen() { return screen; }
+        Screen* Getscreen() { return screen; }
 
         static Window& newInstance(int height, int width, std::string title, std::string icon);
         static Window& getInstance() { return *instance; }
         static void destroy() { delete instance; }
         static void waitEvent(Uint8 event);
         static void showCursor(bool value);
-        static Screen& getScreen() { return *(instance->getScreen()); }
+        static Screen& getScreen() { return *(instance->Getscreen()); }
 
     protected:
 

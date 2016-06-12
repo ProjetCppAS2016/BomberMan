@@ -1,24 +1,32 @@
 #include "Character.h"
-#include "Bomb.h"
-#include "Window.h"
 
-Character::Character() : x(0), y(0), hitbox({0,0,0,0}), gameGrid(NULL),
+using namespace std;
+
+string intToStr(int i)
+{
+    std::ostringstream stream;
+    stream << i;
+    return stream.str();
+}
+
+Character::Character() : x(0), y(0), hitbox({0,0,0,0}),
                          spriteLeft(NULL), spriteRight(NULL),
                          spriteUp(NULL), spriteDown(NULL), actualMove(STOP),
                          can_drop(false), alive(false)
 {}
 
-Character::Character(int x, int y, HITBOX htb, Grid *grd) :  x(x), y(y), hitbox(htb), gameGrid(grd),
-                                                             spriteLeft(new Sprite(1, 90, NULL)),
-                                                             spriteRight(new Sprite(1, 90, NULL)),
-                                                             spriteUp(new Sprite(1, 90, NULL)),
-                                                             spriteDown(new Sprite(1, 90, NULL)),
-                                                             actualMove(STOP),
-                                                             can_drop(true),
-                                                             alive(true)
+Character::Character(int X, int Y, HITBOX htb) : x(0), y(0), hitbox(htb),
+                                                            spriteLeft(new Sprite(1, 90, NULL)),
+                                                            spriteRight(new Sprite(1, 90, NULL)),
+                                                            spriteUp(new Sprite(1, 90, NULL)),
+                                                            spriteDown(new Sprite(1, 90, NULL)),
+                                                            actualMove(STOP),
+                                                            can_drop(true),
+                                                            alive(true)
 {
     string L("textures\\left_"), pathLeft, R("textures\\right_"), pathRight,
            U("textures\\up_"), pathUp, D("textures\\down_"), pathDown, bmp(".bmp");
+   BMPSurface *tmp;
     for (int i=1; i<7; i++) {
         pathLeft = L + intToStr(i) + bmp;
         pathRight = R + intToStr(i) + bmp;
@@ -40,16 +48,18 @@ Character::Character(int x, int y, HITBOX htb, Grid *grd) :  x(x), y(y), hitbox(
     Window::getScreen().addComponent(spriteLeft, false);
     Window::getScreen().addComponent(spriteRight, false);
     Window::getScreen().addComponent(spriteUp, false);
-    Window::getScreen().addComponent(spriteDown, true);
-    spriteDown->displaySprite(true);
+    Window::getScreen().addComponent(spriteDown, false);
+    increaseX(X);
+    increaseY(Y);
+
+    useSprite(DOWN, 1);
 }
 
 Character::~Character()
-{}
+{ kill(); }
 
 Character::Character(const Character& other) : x(other.x), y(other.y),
                                                hitbox(other.hitbox),
-                                               gameGrid(other.gameGrid),
                                                spriteLeft(other.spriteLeft),
                                                spriteRight(other.spriteRight),
                                                spriteUp(other.spriteUp),
@@ -64,7 +74,6 @@ Character& Character::operator=(const Character& rhs)
     x = rhs.x;
     y = rhs.y;
     hitbox = rhs.hitbox;
-    gameGrid = rhs.gameGrid;
     spriteLeft = rhs.spriteLeft;
     spriteRight = rhs.spriteRight;
     spriteUp = rhs.spriteUp;
@@ -135,56 +144,6 @@ void Character::useSprite(moves direction, int nbrImg)
     }
 }
 
-void Character::moveTo(moves direction)
-{
-    switch (direction)
-    {
-        case LEFT:
-            if (actualMove!=LEFT) {
-                useSprite(LEFT, 6);
-                actualMove = LEFT;
-            }
-            if (!gameGrid->collision(this))
-                increaseX(-2);
-            break;
-        case RIGHT:
-            if (actualMove!=RIGHT) {
-                useSprite(RIGHT, 6);
-                actualMove = RIGHT;
-            }
-            if (!gameGrid->collision(this))
-                increaseX(2);
-            break;
-        case UP:
-            if (actualMove!=UP) {
-                useSprite(UP, 6);
-                actualMove = UP;
-            }
-            if (!gameGrid->collision(this))
-                increaseY(-2);
-            break;
-        case DOWN:
-            if (actualMove!=DOWN) {
-                useSprite(DOWN, 6);
-                actualMove = DOWN;
-            }
-            if (!gameGrid->collision(this))
-                increaseY(2);
-            break;
-        case STOP:
-            if (actualMove!=STOP) useSprite(actualMove, 1);
-            actualMove = STOP;
-    }
-}
-
-void Character::dropBomb()
-{
-    if (can_drop) {
-        new Bomb(grid_x, grid_y, grid, this);
-        can_drop = false;
-    }
-}
-
 void Character::kill()
 {
     alive = false;
@@ -194,8 +153,9 @@ void Character::kill()
     spriteDown->displaySprite(false);
     BMPSurface *dead = new BMPSurface("textures\\dead.bmp", x, y);
     dead->setTransparency(true, 0, 255, 0);
-    Window::getInstance().getScreen()->addComponent(dead, false);
+    Window::getScreen().addComponent(dead, false);
     SDL_Delay(3000);
+    Window::getScreen().deleteComponent(dead);
 }
 
 

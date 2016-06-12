@@ -17,16 +17,16 @@ class Tile
         HITBOX getHitbox() { return hitbox; }
         content getContent() { return contain; }
         BMPSurface* getBox() { return box; }
-        Character* getBomber() { return bomberman; }
         void setHitbox(HITBOX val) { hitbox = val; }
         void setContent(content val) { contain = val; }
-        void setBomber(Character *val) { bomberman = val; }
+        void setBomber(Character *val) { bomber = val; }
 
-        bool inTile_top(hitbox htbx);
-        bool inTile_bottom(hitbox htbx);
-        bool inTile_left(hitbox htbx);
-        bool inTile_right(hitbox htbx);
+        bool inTile_top(HITBOX htbx);
+        bool inTile_bottom(HITBOX htbx);
+        bool inTile_left(HITBOX htbx);
+        bool inTile_right(HITBOX htbx);
         void destroy_Box();
+        void kill_bomber();
 
     protected:
 
@@ -34,7 +34,7 @@ class Tile
         HITBOX hitbox;
         content contain;
         BMPSurface *texture, *box;
-        Character *bomberman;
+        Character *bomber;
 };
 
 #endif // TILE_H
