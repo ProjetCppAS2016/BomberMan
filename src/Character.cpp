@@ -180,7 +180,7 @@ void Character::moveTo(moves direction)
 void Character::dropBomb()
 {
     if (can_drop) {
-        new Bomb(grid_x, grid_y, 3, grid, this);
+        new Bomb(grid_x, grid_y, grid, this);
         can_drop = false;
     }
 }

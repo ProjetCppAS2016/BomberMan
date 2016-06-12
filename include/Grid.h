@@ -21,7 +21,7 @@ class Grid
         Character* getBomber(int x, int y) { return tileTab[x][y].getBomber(); }
 
         bool collision(Character* bomberman);
-        bool collision(Bomb* bomb);
+        bool collision_exp(int x, int y);
 
     protected:
 

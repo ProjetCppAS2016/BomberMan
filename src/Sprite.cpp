@@ -47,7 +47,6 @@ Sprite::~Sprite()
     pthread_mutex_destroy(m_surf);
     pthread_mutex_destroy(m_nbr);
     pthread_mutex_destroy(m_time);
-    surface = NULL;
 }
 
 Sprite::Sprite(const Sprite& other) : Surface(other), tab_img(), nbr_img(other.nbr_img), switch_time(other.switch_time), displayed(false)
