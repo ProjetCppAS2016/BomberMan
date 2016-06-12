@@ -10,6 +10,7 @@ Window* Window::instance = NULL;
 
 Window::Window(int w, int h, string t, string i) : width(w), height(h), title(t), icon(i)
 {
+
     SDL_Surface *s;
     if (icon.getSurface()!=NULL)
         SDL_WM_SetIcon(icon.getSurface(), NULL);
@@ -22,11 +23,15 @@ Window::Window(int w, int h, string t, string i) : width(w), height(h), title(t)
 }
 
 Window::~Window()
-{}
+{ SDL_Quit(); }
 
 Window& Window::newInstance(int height, int width, string title, string icon)
 {
     if (instance==NULL) {
+        if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO)) {
+            fprintf(stderr, "Erreur dans l'initialisation de la SDL: %s", SDL_GetError());
+            exit(EXIT_FAILURE);
+        }
         instance = new Window(height, width, title, icon);
         return *instance;
     } else return *instance;

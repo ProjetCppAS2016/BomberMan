@@ -23,6 +23,7 @@ class Window
         static void destroy() { delete instance; }
         static void waitEvent(Uint8 event);
         static void showCursor(bool value);
+        static Screen& getScreen() { return *(instance->getScreen()); }
 
     protected:
 

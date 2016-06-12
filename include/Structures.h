@@ -30,13 +30,7 @@ typedef struct SYNC
     pthread_cond_t *c_sync;
 } SYNC;
 
-typedef struct TILE
-{
-    int xMin, xMax, yMin, yMax;
-    content contain;
-    void *player;
-    BMPSurface *box;
-} TILE;
+
 
 typedef struct HITBOX
 {

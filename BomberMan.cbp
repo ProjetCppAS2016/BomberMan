@@ -47,23 +47,21 @@
 		<Unit filename="include/BMPSurface.h" />
 		<Unit filename="include/Bomb.h" />
 		<Unit filename="include/Character.h" />
-		<Unit filename="include/FlatSurface.h" />
-		<Unit filename="include/IMGSurface.h" />
+		<Unit filename="include/Grid.h" />
 		<Unit filename="include/Screen.h" />
 		<Unit filename="include/Sprite.h" />
 		<Unit filename="include/Structures.h" />
 		<Unit filename="include/Surface.h" />
-		<Unit filename="include/Text.h" />
+		<Unit filename="include/Tile.h" />
 		<Unit filename="include/Window.h" />
 		<Unit filename="src/BMPSurface.cpp" />
 		<Unit filename="src/Bomb.cpp" />
 		<Unit filename="src/Character.cpp" />
-		<Unit filename="src/FlatSurface.cpp" />
-		<Unit filename="src/IMGSurface.cpp" />
+		<Unit filename="src/Grid.cpp" />
 		<Unit filename="src/Screen.cpp" />
 		<Unit filename="src/Sprite.cpp" />
 		<Unit filename="src/Surface.cpp" />
-		<Unit filename="src/Text.cpp" />
+		<Unit filename="src/Tile.cpp" />
 		<Unit filename="src/Window.cpp" />
 		<Unit filename="src/main.cpp" />
 		<Extensions>
