@@ -37,40 +37,12 @@ Tile& Tile::operator=(const Tile& rhs)
     return *this;
 }
 
-bool Tile::inTile_top(HITBOX bomber_htbx)
+bool Tile::isInTile(HITBOX bomber_htbx)
 {
-    if (bomber_htbx.xMax>=hitbox.xMin && bomber_htbx.xMin<=hitbox.xMax) {
-        if (bomber_htbx.yMax >= hitbox.yMin)
+    if (bomber_htbx.yMax>=hitbox.yMin && bomber_htbx.yMin<=hitbox.yMax &&
+        bomber_htbx.xMin<=hitbox.xMax && bomber_htbx.xMax>=hitbox.xMin)
             return true;
-        else return false;
-    } else return false;
-}
-
-bool Tile::inTile_bottom(HITBOX bomber_htbx)
-{
-    if (bomber_htbx.xMax>=hitbox.xMin && bomber_htbx.xMin<=hitbox.xMax) {
-        if (bomber_htbx.yMin <= hitbox.yMax)
-            return true;
-        else return false;
-    } else return false;
-}
-
-bool Tile::inTile_left(HITBOX bomber_htbx)
-{
-     if (bomber_htbx.yMax>=hitbox.yMin && bomber_htbx.yMin<=hitbox.yMax) {
-        if (bomber_htbx.xMax >= hitbox.xMin)
-            return true;
-        else return false;
-    } else return false;
-}
-
-bool Tile::inTile_right(HITBOX bomber_htbx)
-{
-    if (bomber_htbx.yMax>=hitbox.yMin && bomber_htbx.yMin<=hitbox.yMax) {
-        if (bomber_htbx.yMin <= hitbox.yMax)
-            return true;
-        else return false;
-    } else return false;
+    else return false;
 }
 
 void Tile::destroy_Box()

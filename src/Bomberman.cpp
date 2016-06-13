@@ -75,19 +75,19 @@ void Bomberman::waitEvents()
             switch (event.key.keysym.sym) {
             case SDLK_LEFT:
                     moveTo(LEFT);
-                    mainScreen.synchronise(10);
+                    mainScreen.synchronise(20);
                 break;
             case SDLK_RIGHT:
                     moveTo(RIGHT);
-                    mainScreen.synchronise(10);
+                    mainScreen.synchronise(20);
                 break;
             case SDLK_UP:
                     moveTo(UP);
-                    mainScreen.synchronise(10);
+                    mainScreen.synchronise(20);
                 break;
             case SDLK_DOWN:
                     moveTo(DOWN);
-                    mainScreen.synchronise(10);
+                    mainScreen.synchronise(20);
                 break;
             case SDLK_SPACE:
                     if (!can_drop && SDL_GetTicks()-time_drop>=4600) can_drop = true;
@@ -100,6 +100,7 @@ void Bomberman::waitEvents()
             moveTo(STOP);
         }
     }
+    if (!alive) SDL_Delay(1000);
 }
 
 void Bomberman::dropBomb()

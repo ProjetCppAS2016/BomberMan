@@ -21,10 +21,7 @@ class Tile
         void setContent(content val) { contain = val; }
         void setBomber(Character *val) { bomber = val; }
 
-        bool inTile_top(HITBOX htbx);
-        bool inTile_bottom(HITBOX htbx);
-        bool inTile_left(HITBOX htbx);
-        bool inTile_right(HITBOX htbx);
+        bool isInTile(HITBOX htbx);
         void destroy_Box();
         void kill_bomber();
 

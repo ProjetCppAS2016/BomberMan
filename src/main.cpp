@@ -1,7 +1,7 @@
 #include <SDL/SDL.h>
 #include "Window.h"
 #include "Screen.h"
-#include "Character.h"
+#include "Bomberman.h"
 #include "Grid.h"
 
 int main(int argv, char** args)
@@ -12,8 +12,9 @@ int main(int argv, char** args)
     mainScreen.activateA_R(true);
 
     Grid gameGrid;
-    Character bomberman(33, 33, {0, 18, 24, 32});
-    gameGrid.getTile(1,1)->setBomber(&bomberman);
+    Bomberman bomber(33, 33, {0, 18, 24, 32}, &gameGrid);
+    gameGrid.getTile(1,1)->setBomber(&bomber);
+    bomber.waitEvents();
 
     mainScreen.activateA_R(false);
     Window::destroy();

@@ -80,12 +80,12 @@ void Explosion::propagate()
     if (canPropagate) {
         if (direction == STOP) {
             Explosion *e_left, *e_right, *e_up, *e_down;
-            e_left = new Explosion(pos_x-1, pos_y, LEFT, gameGrid);
-            e_right = new Explosion(pos_x+1, pos_y, RIGHT, gameGrid);
-            e_up = new Explosion(pos_x, pos_y-1, UP, gameGrid);
-            e_down = new Explosion(pos_x, pos_y+1, DOWN, gameGrid);
+            e_left = new Explosion(pos_x, pos_y, LEFT, gameGrid);
+            e_right = new Explosion(pos_x, pos_y, RIGHT, gameGrid);
+            e_up = new Explosion(pos_x, pos_y, UP, gameGrid);
+            e_down = new Explosion(pos_x, pos_y, DOWN, gameGrid);
 
-            for (int i=0; i<3; i++) {
+            for (int i=0; i<1; i++) {
                 e_left->propagate();
                 e_right->propagate();
                 e_up->propagate();

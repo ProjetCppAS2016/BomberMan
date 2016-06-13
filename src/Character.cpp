@@ -56,7 +56,12 @@ Character::Character(int X, int Y, HITBOX htb) : x(0), y(0), hitbox(htb),
 }
 
 Character::~Character()
-{ kill(); }
+{
+    Window::getScreen().deleteComponent(spriteLeft);
+    Window::getScreen().deleteComponent(spriteRight);
+    Window::getScreen().deleteComponent(spriteUp);
+    Window::getScreen().deleteComponent(spriteDown);
+}
 
 Character::Character(const Character& other) : x(other.x), y(other.y),
                                                hitbox(other.hitbox),
@@ -154,8 +159,6 @@ void Character::kill()
     BMPSurface *dead = new BMPSurface("textures\\dead.bmp", x, y);
     dead->setTransparency(true, 0, 255, 0);
     Window::getScreen().addComponent(dead, false);
-    SDL_Delay(3000);
-    Window::getScreen().deleteComponent(dead);
 }
 
 

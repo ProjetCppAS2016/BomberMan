@@ -98,7 +98,6 @@ void Screen::refscr(COMPONENT *t)
 {
     if (t!=NULL) {
         if (t->next!=NULL) refscr(t->next);
-
         blit(*(t->object));
     }
 }

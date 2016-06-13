@@ -225,11 +225,11 @@
 	<iostream>
 	"Surface.h"
 
-1465772014 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\main.cpp
+1465772702 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\main.cpp
 	<SDL/SDL.h>
 	"Window.h"
 	"Screen.h"
-	"Character.h"
+	"Bomberman.h"
 	"Grid.h"
 
 1464452262 c:\users\shiro\desktop\projettut[c++]\bomberman\include\screen.h
@@ -238,7 +238,7 @@
 	"Surface.h"
 	"Structures.h"
 
-1465235449 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\screen.cpp
+1465824630 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\screen.cpp
 	"Screen.h"
 	<iostream>
 
@@ -256,7 +256,7 @@
 	"Surface.h"
 	<SDL/SDL.h>
 
-1464431920 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\window.cpp
+1465639508 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\window.cpp
 	"Window.h"
 	"Surface.h"
 	"Screen.h"
@@ -389,7 +389,7 @@
 	<sys/types.h>
 	<stdint.h>
 
-1465770533 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\character.cpp
+1465832082 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\character.cpp
 	"Character.h"
 
 1465770518 c:\users\shiro\desktop\projettut[c++]\bomberman\include\character.h
@@ -421,7 +421,7 @@
 	"Character.h"
 	"Tile.h"
 
-1465771087 c:\users\shiro\desktop\projettut[c++]\bomberman\include\tile.h
+1465820238 c:\users\shiro\desktop\projettut[c++]\bomberman\include\tile.h
 	"Structures.h"
 	"Character.h"
 	"BMPSurface.h"
@@ -434,12 +434,15 @@
 	"Window.h"
 	<SDL/SDL.h>
 
-1465770300 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\bomberman.cpp
+1465824324 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\bomberman.cpp
 	"Bomberman.h"
 
-1465770609 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\explosion.cpp
+1465824091 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\explosion.cpp
 	"Explosion.h"
 
-1465771822 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\grid.cpp
+1465824117 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\grid.cpp
 	"Grid.h"
+
+1465820238 source:c:\users\shiro\desktop\projettut[c++]\bomberman\src\tile.cpp
+	"Tile.h"
 
